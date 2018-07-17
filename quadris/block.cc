@@ -24,7 +24,7 @@ Block::Block(int gridDim, int numPossibilities) {
 		}
 	}
 }
-
+/*
 Block *Block::Create(string type) {
 	if (type == "i") {
 		return new IBlock();
@@ -48,8 +48,7 @@ Block *Block::Create(string type) {
 		return new JBlock();
 	}
 	else return NULL;
-}
-
+}*/
 void Block::rotateClockwise() {
 	if (pos == numPos - 1) {
 		pos = 0;
@@ -69,7 +68,12 @@ void Block::rotateCounterClockwise() {
 	}
 	current = possibilities[pos];
 }
+void Block::left(){
+	
 
+}
+
+/*
 void Block::printCurrent() {
 	for (int r = 0; r < dim; ++r) {
 		for (int c = 0; c < dim; ++c) {
@@ -78,4 +82,4 @@ void Block::printCurrent() {
 		cout << endl;
 	}
 }
-		
+*/		

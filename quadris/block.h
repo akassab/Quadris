@@ -18,14 +18,14 @@ class Block {
 	std::vector<std::vector<std::vector<Cell>>> possibilities;
 	public: 
 		Block(int gridDim, int numPossibilities);
-		static Block *Create(std::string type);
+		//static Block *Create(std::string type);
 		void rotateClockwise();
 		void rotateCounterClockwise();
-		void left(Board *b);
-		void right(Board *b);
-		void down(Board *b);
-		void drop(Board *b);
+		void left();
+		void right();
+		void down();
+		void drop();
 		// print the current orientation
-		void printCurrent();
+		//void printCurrent();
 };
 #endif
