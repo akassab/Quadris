@@ -3,6 +3,7 @@
 #include <vector>
 #include <iostream>
 #include "cell.h"
+#include "board.h"
 class Block {
 	protected:
 	// dimension of every orientation 

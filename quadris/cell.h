@@ -2,14 +2,19 @@
 #define CELL_H
 class Cell {
 	char type;
+	int x;
+	int y;
 	public:
-	explicit Cell();
-
+	explicit Cell(int nx, int ny);
 	~Cell();
-	explicit Cell(char t);
-	bool isL();
-	bool isI();
+	int getX();
+	int getY();
+	void setX(int n);
+	void setY(int n);
+	explicit Cell(char t, int nx, int ny);
 	char getType();
+	void setType(char t);
+	
 
 	
 };

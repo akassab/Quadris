@@ -1,6 +1,6 @@
 
 #include "board.h"
-
+#include "block.h"
 using namespace std;
 Board::Board() {
 	board.resize(22);

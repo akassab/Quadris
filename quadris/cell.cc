@@ -1,30 +1,30 @@
 #include "cell.h"
 
-Cell::Cell() {
+Cell::Cell(int nx, int ny): x{nx}, y{ny} {
 	type = ' ';
 }
-
-
 
 Cell::~Cell() {
 }
 
-Cell::Cell(char t) {
+Cell::Cell(char t, int nx, int ny): x{nx}, y{ny} {
 	type = t;
 }
 
-bool Cell::isL() {
-	if (type == 'L') {
-		return true;
-	}
-	return false;
+int Cell::getX() {
+	return x;
 }
 
-bool Cell::isI() {
-	if (type == 'I') {
-		return true;
-	}
-	return false;
+int Cell::getY() {
+	return y;
+}
+
+void Cell::setX(int n) {
+	x = n;
+}
+
+void Cell::setY(int n) {
+	y = n;
 }
 
 char Cell::getType() {
