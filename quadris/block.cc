@@ -19,12 +19,12 @@ Block::Block(int gridDim, int numPossibilities) {
 		for (int row = 0; row < dim; ++row) {
 			possibilities[pos][row].resize(dim);
 			for (int col = 0; col < dim; ++col) {
-				possibilities[pos][row][col] = *(new Cell());
+				possibilities[pos][row][col] = ' ';
 			}
 		}
 	}
 }
-/*
+
 Block *Block::Create(string type) {
 	if (type == "i") {
 		return new IBlock();
@@ -48,7 +48,7 @@ Block *Block::Create(string type) {
 		return new JBlock();
 	}
 	else return NULL;
-}*/
+}
 void Block::rotateClockwise() {
 	if (pos == numPos - 1) {
 		pos = 0;
@@ -69,9 +69,41 @@ void Block::rotateCounterClockwise() {
 	current = possibilities[pos];
 }
 void Block::left(){
-	
+	x = x-1;	
 
 }
+
+void Block::right(){
+	x = x+1;
+}
+
+void Block::down(){
+	x = x+1;
+}
+
+int Block::getX(){
+	return x;
+}
+
+int Block::getY(){
+	return y;
+}
+
+bool Block::checkFit(Board b*){
+	for(int i = 0; i< dim; i++){
+		for(int j = 0; j< dim; j++){
+			if(Board->isFilled(x+i, y+j)){
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+std::vector<std::vector<char>> Block::getCurrent(){
+	return current;
+}
+
 
 /*
 void Block::printCurrent() {

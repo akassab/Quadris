@@ -20,13 +20,15 @@ class Board {
 
 
 	//User current block transformations/moves
-	void right(Block *current);
-	void left(Block *current);
-	void drop(Block *current);
-	void down(Block *current);
-	void clockwise(Block *current);
-	void cclockwise(Block *current);
+	void right();
+	void left();
+	void drop();
+	void down();
+	void clockwise();
+	void cclockwise();
 	//
+
+	
 
 	//User interactions
 	void changeNextBlk(char type);

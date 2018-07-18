@@ -2,13 +2,40 @@
 #include "board.h"
 
 using namespace std;
+/*
 Board::Board() {
 	board.resize(22);
 	for (int i = 0; i < 22; ++i) {
 		board[i].resize(13);
 	}
 }
+*/
 
+Board::init(){
+	score = 0;
+	level = 0;
+	delete s;
+	s = new Score();
+	delete nb;
+	nb = new newBlock();
+	current = nullptr;
+	
+	for(unsigned int i =0; i<22; ++i){ //create new board
+		vector<Cell> row;
+		for(unsigned int j = 0; j<13; ++j){
+			row.push_back(Cell(i,j))'
+		}
+		board.push_back(row)
+	}
+
+
+}
+
+Board::Board():score{0},level{0}, s{new Score()}, nb{new newBlock()}, current{nullptr}
+	,board{vector<vector
+
+}
+/*
 void Board::print() {
 	for (int i = 0; i < 4; ++i) {
 		if (i == 1) {
@@ -37,4 +64,50 @@ void Board::clearNew() {
 			board[i][r] = *(new Cell());
 		}
 	}
+}
+
+*/
+
+void Board::right(){
+	current->right();
+	if(current->checkFit(this)){
+		notifyObservers();
+	}
+	else{
+		current->left();
+	}
+}
+
+
+void Board::left(){
+	current->left();
+	if(current->checkFit(this)){ //check if block movement fits in board
+		notifyObservers();
+	}
+	else{
+		current->right();
+	}
+}
+void Board::down(){
+	current->down();
+	if(current->checkFit(this)){
+		notifyObservers();
+	}
+	else{
+		current->up();
+	}
+}
+
+void Board::drop(){
+	//drop block onto board
+	
+}
+
+void changeNextBlk(char type){
+	nb->replace(type);
+	notifyObservers();
+}
+
+void random(bool random){
+	s->random(random);
 }
