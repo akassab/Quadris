@@ -3,7 +3,11 @@
 #include <vector>
 #include <iostream>
 #include "cell.h"
+<<<<<<< HEAD
 #include "board.h"
+=======
+// hi
+>>>>>>> 2c5d2c194558f9003c67e6516ca064aa69444eb2
 class Block {
 	protected:
 	// dimension of every orientation 
@@ -18,14 +22,14 @@ class Block {
 	std::vector<std::vector<std::vector<Cell>>> possibilities;
 	public: 
 		Block(int gridDim, int numPossibilities);
-		static Block *Create(std::string type);
+		//static Block *Create(std::string type);
 		void rotateClockwise();
 		void rotateCounterClockwise();
-		void left(Board *b);
-		void right(Board *b);
-		void down(Board *b);
-		void drop(Board *b);
+		void left();
+		void right();
+		void down();
+		void drop();
 		// print the current orientation
-		void printCurrent();
+		//void printCurrent();
 };
 #endif
