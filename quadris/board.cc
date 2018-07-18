@@ -1,5 +1,7 @@
 #include "block.h"
 #include "board.h"
+#include "newblock.h"
+#include "score.h"
 
 using namespace std;
 /*
@@ -103,11 +105,25 @@ void Board::drop(){
 	
 }
 
-void changeNextBlk(char type){
+void Board::changeNextBlk(char type){
 	nb->replace(type);
 	notifyObservers();
 }
 
-void random(bool random){
+void Board::random(bool random){
 	s->random(random);
+}
+
+bool Board::checkFit(Board b*){
+	int dim = current->getDim();
+	vector<vector<char>> coords;
+	coords = current->getCells();
+	for(int i =0; i< dim; ++i){
+		for(int j = 0; j<dim; ++j){
+			if(isFull(i+x, j+x) && coords[i][j] != ' '){
+				return false;
+			} 
+		}
+	}
+	return true;
 }

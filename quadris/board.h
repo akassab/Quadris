@@ -7,12 +7,13 @@
 using std::vector;
 class Board { 
 	vector<vector<Cell>> board;
-	Block *current;
-	NewBlock *nb;
+	Block *current = nullptr;
+	newBlock *nb = nullptr;
 	char newBlk;
 	int score;
-	Score *s;
+	Score *s = nullptr
 	int level;
+	bool isFull(int r, int c);
 	public:
 	Board();
 	void setnextBlock(NewBlock *nb);

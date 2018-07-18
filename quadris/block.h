@@ -23,11 +23,12 @@ class Block {
 		static Block *Create(char type);
 		void rotateClockwise();
 		void rotateCounterClockwise();
+		int getDim();
 		void left();
 		void right();
 		void down();
+		void up();
 		void drop(); 
-		bool checkFit(Board *b); //check if block fits in Board
 		int getX(); //return coordinates
 		int getY();
 		std::vector<std::vector<char>> getCurrent(); //returns vector of positions

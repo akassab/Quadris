@@ -1,7 +1,12 @@
+#include "newblock.h"
+
+using namespace std;
+
+
 newBlock::newBlock(): level{0}, random{false}, type{' '} {}
 
-void newBlock::random(bool rand){
-	random = rand;
+void newBlock::rand(bool random){
+	this->random = random;
 }
 
 void newBlock::replace(char type){

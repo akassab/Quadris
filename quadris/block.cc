@@ -10,8 +10,8 @@
 
 using namespace std;
 Block::Block(int gridDim, int numPossibilities) {
-	x = 0;
-	y = 0;
+	r = 0;
+	c = 0;
 	pos = 0;
 	numPos = numPossibilities;
 	dim = gridDim;
@@ -27,26 +27,30 @@ Block::Block(int gridDim, int numPossibilities) {
 	}
 }
 
-Block *Block::Create(string type) {
-	if (type == "i") {
+int Block::getDim(){
+	return dim;
+}
+
+Block *Block::Create(char type) {
+	if (type == 'i') {
 		return new IBlock();
 	}
-	else if (type == "o") {
+	else if (type == 'o') {
 		return new OBlock();
 	}
-	else if (type == "t") {
+	else if (type == 't') {
 		return new TBlock();
 	}
-	else if (type == "s") {
+	else if (type == 's') {
 		return new SBlock();
 	}
-	else if (type == "z") {
+	else if (type == 'z') {
 		return new ZBlock();
 	}
-	else if (type == "l") {
+	else if (type == 'l') {
 		return new LBlock();
 	}
-	else if (type == "j") {
+	else if (type == 'j') {
 		return new JBlock();
 	}
 	else return NULL;
@@ -71,38 +75,32 @@ void Block::rotateCounterClockwise() {
 	current = possibilities[pos];
 }
 void Block::left(){
-	x = x-1;	
+	c = c-1;	
 
 }
 
 void Block::right(){
-	x = x+1;
+	c = c+1;
 }
 
 void Block::down(){
-	x = x+1;
+	r = r-1;
+}
+
+void Block::up(){
+	r = r+1;
 }
 
 int Block::getX(){
-	return x;
+	return c;
 }
 
 int Block::getY(){
-	return y;
+	return r;
 }
 
-bool Block::checkFit(Board b*){
-	for(int i = 0; i< dim; i++){
-		for(int j = 0; j< dim; j++){
-			if(Board->isFilled(x+i, y+j)){
-				return false;
-			}
-		}
-	}
-	return true;
-}
 
-std::vector<std::vector<char>> Block::getCells() {
+std::vector<std::vector<char>> Block::getCurrent() {
 	return current;
 	/*
 	for (int r = 0; r < dim; ++r) {
