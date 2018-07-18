@@ -136,7 +136,14 @@ bool Board::checkFit(){
 }
 
 bool Board::isFull(int r, int c){
-	return false;
+	if(r>17 || r<0 || c>10 || c<0){
+		return false;
+	}
+	if(getType(board[r][c]) == ' '){
+		return true;
+	}else{
+		return false;
+	}
 }
 	
 
