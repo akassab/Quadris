@@ -29,8 +29,8 @@ class Block {
 		void down();
 		void up();
 		void drop(); 
-		int getX(); //return coordinates
-		int getY();
+		int getR(); //return coordinates
+		int getC();
 		std::vector<std::vector<char>> getCurrent(); //returns vector of positions
 		// print the current orientation
 		//void printCurrent();

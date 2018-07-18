@@ -4,22 +4,28 @@
 #include <vector>
 #include "cell.h"
 #include "block.h"
-using std::vector;
-class Board { 
-	vector<vector<Cell>> board;
+#include "newblock.h"
+#include "score.h"
+#include "observer.h"
+#include "subject.h"
+
+class Observer;
+
+class Board: public Subject { 
+	std::vector<std::vector<Cell>> board;
 	Block *current = nullptr;
 	newBlock *nb = nullptr;
 	char newBlk;
 	int score;
-	Score *s = nullptr
+	Score *s = nullptr;
 	int level;
-	bool isFull(int r, int c);
+	bool isFull(int r, int c); //checks if cell is full
+	void setonBoard(); //sets current onto the board (drop)
 	public:
-	Board();
-	void setnextBlock(NewBlock *nb);
+	void init();
 	
-
-
+	
+	bool checkFit();
 
 	//User current block transformations/moves
 	void right();

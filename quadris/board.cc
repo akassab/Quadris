@@ -2,7 +2,9 @@
 #include "board.h"
 #include "newblock.h"
 #include "score.h"
-
+#include "subject.h"
+#include "observer.h"
+#include "cell.h"
 using namespace std;
 /*
 Board::Board() {
@@ -13,21 +15,21 @@ Board::Board() {
 }
 */
 
-Board::init(){
+void Board::init(){
 	score = 0;
 	level = 0;
 	delete s;
 	s = new Score();
 	delete nb;
 	nb = new newBlock();
-	newBlk = nb->getnewBlk;
-	Block::create(newBlk);	
+	newBlk = nb->getnewBlk();
+	Block::Create(newBlk);	
 	for(unsigned int i =0; i<18; ++i){ //create new board
 		vector<Cell> row;
 		for(unsigned int j = 0; j<11; ++j){
 			row.push_back(Cell(i,j));
 		}
-		board.push_back(row)
+		board.push_back(row);
 	}
 
 }
@@ -67,7 +69,7 @@ void Board::clearNew() {
 
 void Board::right(){
 	current->right();
-	if(current->checkFit(this)){
+	if(checkFit()){
 		notifyObservers();
 	}
 	else{
@@ -78,7 +80,7 @@ void Board::right(){
 
 void Board::left(){
 	current->left();
-	if(current->checkFit(this)){ //check if block movement fits in board
+	if(checkFit()){ //check if block movement fits in board
 		notifyObservers();
 	}
 	else{
@@ -87,7 +89,7 @@ void Board::left(){
 }
 void Board::down(){
 	current->down();
-	if(current->checkFit(this)){
+	if(checkFit()){
 		notifyObservers();
 	}
 	else{
@@ -98,11 +100,14 @@ void Board::down(){
 void Board::drop(){
 	setonBoard();//set the current Block on the board
 	delete current;
-	current = Block::create(newBlk);
-	checkLost(); //check if new current fits on top of board
-	nb->generatenew();
-	newBlk = nb->getnewBlk();
-	
+	current = Block::Create(newBlk);
+	if(checkFit()){
+		nb->generatenew();
+		newBlk = nb->getnewBlk();
+	}
+	else{
+		//end game
+	}
 }
 
 void Board::changeNextBlk(char type){
@@ -111,19 +116,31 @@ void Board::changeNextBlk(char type){
 }
 
 void Board::random(bool random){
-	s->random(random);
+	nb->rand(random);
 }
 
-bool Board::checkFit(Board b*){
+bool Board::checkFit(){
 	int dim = current->getDim();
 	vector<vector<char>> coords;
-	coords = current->getCells();
+	coords = current->getCurrent();
+	int r = current->getR();
+	int c = current->getC();
 	for(int i =0; i< dim; ++i){
 		for(int j = 0; j<dim; ++j){
-			if(isFull(i+x, j+x) && coords[i][j] != ' '){
+			if(isFull(i+r, j+c) && coords[i][j] != ' '){
 				return false;
 			} 
 		}
 	}
 	return true;
+}
+
+bool Board::isFull(int r, int c){
+	return false;
+}
+	
+
+void Board::setonBoard(){
+
+
 }

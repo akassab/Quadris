@@ -8,10 +8,14 @@
 #include "sblock.h"
 using namespace std;
 int main() {
-	Board *board = new Board();	
+	Board *b = new Board();	
+	b->init();
+
+
 	
 	//		b->newBlock('L');
 	//		b->print();
+	/*
 	Block *b = new LBlock();
 	board->newBlock(b);
 	string input;
@@ -29,7 +33,7 @@ int main() {
 		board->print();
 		
 	}
-
+	*/
 	
 
 }

@@ -1,6 +1,6 @@
 #include "cell.h"
 
-Cell::Cell(int x, int y): x{x}, y{x},type{' '} {
+Cell::Cell(int x, int y): r{x}, c{x},type{' '} {
 
 }
 
@@ -17,20 +17,20 @@ char Cell::getType() {
 	return type;
 }
 
-void Cell::setX(int x){
-	x = x;
+void Cell::setR(int x){
+	r = x;
 }
 
-void Cell::setY(int y){
-	y = y;
+void Cell::setC(int y){
+	c = y;
 }
 
-int Cell::getX(){
-	return x;
+int Cell::getR(){
+	return r;
 }
 
-int Cell::getY(){
-	return y;
+int Cell::getC(){
+	return c;
 }
 
 void Cell::setType(char type){

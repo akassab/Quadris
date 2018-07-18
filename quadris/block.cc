@@ -91,12 +91,12 @@ void Block::up(){
 	r = r+1;
 }
 
-int Block::getX(){
-	return c;
+int Block::getR(){
+	return r;
 }
 
-int Block::getY(){
-	return r;
+int Block::getC(){
+	return c;
 }
 
 

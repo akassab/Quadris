@@ -1,9 +1,10 @@
 #include "textdisplay.h"
 #include "board.h"
+#include "subject.h"
 
 using namespace std;
 
-void TextDisplay::notify(Board &whoNotified){
+void TextDisplay::notify(Subject &whoNotified){
 	
 
 }
@@ -11,7 +12,7 @@ void TextDisplay::notify(Board &whoNotified){
 ostream &operator<<(ostream &out, const TextDisplay &td){
 
 
-
+	return out;
 
 }
 
