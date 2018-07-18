@@ -6,6 +6,7 @@ class Subject {
 	
 	public:
 	void attach(Observer *o);
+	void detach(Observer *o);
 	void notifyObservers();
 }
 
