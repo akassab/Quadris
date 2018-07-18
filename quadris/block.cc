@@ -10,6 +10,8 @@
 
 using namespace std;
 Block::Block(int gridDim, int numPossibilities) {
+	x = 0;
+	y = 0;
 	pos = 0;
 	numPos = numPossibilities;
 	dim = gridDim;
@@ -100,18 +102,15 @@ bool Block::checkFit(Board b*){
 	return true;
 }
 
-std::vector<std::vector<char>> Block::getCurrent(){
+std::vector<std::vector<char>> Block::getCells() {
 	return current;
-}
-
-
-/*
-void Block::printCurrent() {
+	/*
 	for (int r = 0; r < dim; ++r) {
 		for (int c = 0; c < dim; ++c) {
 			cout << current[r][c].getType();
 		}
 		cout << endl;
 	}
+	*/
 }
-*/		
+

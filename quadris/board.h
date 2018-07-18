@@ -9,6 +9,7 @@ class Board {
 	vector<vector<Cell>> board;
 	Block *current;
 	NewBlock *nb;
+	char newBlk;
 	int score;
 	Score *s;
 	int level;

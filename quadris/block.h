@@ -6,8 +6,8 @@
 // hi
 class Block {
 	protected:
-	int x;//coordinates of lower left corner
-	int y;
+	int r;//coordinates of lower left corner
+	int c;
 	// dimension of every orientation 
 	int dim;
 	// position in possibilities vector

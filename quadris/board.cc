@@ -1,4 +1,4 @@
-
+#include "block.h"
 #include "board.h"
 
 using namespace std;
@@ -18,23 +18,18 @@ Board::init(){
 	s = new Score();
 	delete nb;
 	nb = new newBlock();
-	current = nullptr;
-	
-	for(unsigned int i =0; i<22; ++i){ //create new board
+	newBlk = nb->getnewBlk;
+	Block::create(newBlk);	
+	for(unsigned int i =0; i<18; ++i){ //create new board
 		vector<Cell> row;
-		for(unsigned int j = 0; j<13; ++j){
-			row.push_back(Cell(i,j))'
+		for(unsigned int j = 0; j<11; ++j){
+			row.push_back(Cell(i,j));
 		}
 		board.push_back(row)
 	}
 
-
 }
 
-Board::Board():score{0},level{0}, s{new Score()}, nb{new newBlock()}, current{nullptr}
-	,board{vector<vector
-
-}
 /*
 void Board::print() {
 	for (int i = 0; i < 4; ++i) {
@@ -99,7 +94,12 @@ void Board::down(){
 }
 
 void Board::drop(){
-	//drop block onto board
+	setonBoard();//set the current Block on the board
+	delete current;
+	current = Block::create(newBlk);
+	checkLost(); //check if new current fits on top of board
+	nb->generatenew();
+	newBlk = nb->getnewBlk();
 	
 }
 
