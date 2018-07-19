@@ -126,10 +126,21 @@ bool Board::checkFit(){
 }
 
 bool Board::isFull(int r, int c){
+<<<<<<< HEAD
 	// ayman adding stuff here
 	if (board[r][c] != ' ') {
 		return false;}
 	return true;
+=======
+	if(r>17 || r<0 || c>10 || c<0){
+		return false;
+	}
+	if(board[r][c].getType() == ' '){
+		return true;
+	}else{
+		return false;
+	}
+>>>>>>> 7e1efc8be93c8ff618769a0644f0f74f42d2c36a
 }
 	
 
