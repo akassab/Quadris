@@ -7,10 +7,10 @@ class Score {
 	int level;
 	int score;
 public:
-	void getScore();
+	int getScore();
 	void genScoreBlock(int lvl);
 	void setLvl(int lvl);
 	void genScoreRows(int rows);
-}
+};
 
 #endif

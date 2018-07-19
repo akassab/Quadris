@@ -2,14 +2,11 @@
 #define BLOCK_H
 #include <vector>
 #include <iostream>
-#include "cell.h"
-<<<<<<< HEAD
 #include "board.h"
-=======
-// hi
->>>>>>> 2c5d2c194558f9003c67e6516ca064aa69444eb2
 class Block {
 	protected:
+	int r;//coordinates of lower left corner
+	int c;
 	// dimension of every orientation 
 	int dim;
 	// position in possibilities vector
@@ -17,18 +14,23 @@ class Block {
 	// num of orientations in possibilities vector
 	int numPos;
 	// current block orientation
-	std::vector<std::vector<Cell>> current;
+	std::vector<std::vector<char>> current;
 	// vector of orientations
-	std::vector<std::vector<std::vector<Cell>>> possibilities;
+	std::vector<std::vector<std::vector<char>>> possibilities;
 	public: 
 		Block(int gridDim, int numPossibilities);
-		//static Block *Create(std::string type);
+		static Block *Create(char type);
 		void rotateClockwise();
 		void rotateCounterClockwise();
+		int getDim();
 		void left();
 		void right();
 		void down();
-		void drop();
+		void up();
+		void drop(); 
+		int getR(); //return coordinates
+		int getC();
+		std::vector<std::vector<char>> getCurrent(); //returns vector of positions
 		// print the current orientation
 		//void printCurrent();
 };

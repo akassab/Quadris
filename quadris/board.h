@@ -4,29 +4,41 @@
 #include <vector>
 #include "cell.h"
 #include "block.h"
-using std::vector;
-class Board { 
-	vector<vector<Cell>> board;
-	Block *current;
-	NewBlock *nb;
+#include "newblock.h"
+#include "score.h"
+#include "observer.h"
+#include "subject.h"
+
+class Block;
+class Observer;
+
+class Board: public Subject { 
+	std::vector<std::vector<char>> board;
+	Block *current = nullptr;
+	newBlock *nb = nullptr;
+	char newBlk;
 	int score;
-	Score *s;
+	Score *s = nullptr;
 	int level;
+	bool isFull(int r, int c); //checks if cell is full
 	public:
-	Board();
-	void setnextBlock(NewBlock *nb);
+	void setonBoard(); //sets current onto the board (drop)
+	public:
+	void init();
 	
-
-
+	
+	bool checkFit();
 
 	//User current block transformations/moves
-	void right(Block *current);
-	void left(Block *current);
-	void drop(Block *current);
-	void down(Block *current);
-	void clockwise(Block *current);
-	void cclockwise(Block *current);
+	void right();
+	void left();
+	void drop();
+	void down();
+	void clockwise();
+	void cclockwise();
 	//
+
+	
 
 	//User interactions
 	void changeNextBlk(char type);
@@ -48,6 +60,9 @@ class Board {
 	//void draw();
 	//void print();
 	void clearNew();
+
+	//print
+	void print();
 
 };
 #endif

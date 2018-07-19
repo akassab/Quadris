@@ -10,6 +10,8 @@
 
 using namespace std;
 Block::Block(int gridDim, int numPossibilities) {
+	r = 0;
+	c = 0;
 	pos = 0;
 	numPos = numPossibilities;
 	dim = gridDim;
@@ -19,43 +21,43 @@ Block::Block(int gridDim, int numPossibilities) {
 		for (int row = 0; row < dim; ++row) {
 			possibilities[pos][row].resize(dim);
 			for (int col = 0; col < dim; ++col) {
-				possibilities[pos][row][col] = *(new Cell());
+				possibilities[pos][row][col] = ' ';
 			}
 		}
 	}
 }
-/*
-Block *Block::Create(string type) {
-	if (type == "i") {
+
+int Block::getDim(){
+	return dim;
+}
+
+Block *Block::Create(char type) {
+	if (type == 'i') {
 		return new IBlock();
 	}
-	else if (type == "o") {
+	else if (type == 'o') {
 		return new OBlock();
 	}
-	else if (type == "t") {
+	else if (type == 't') {
 		return new TBlock();
 	}
-	else if (type == "s") {
+	else if (type == 's') {
 		return new SBlock();
 	}
-	else if (type == "z") {
+	else if (type == 'z') {
 		return new ZBlock();
 	}
-	else if (type == "l") {
+	else if (type == 'l') {
 		return new LBlock();
 	}
-	else if (type == "j") {
+	else if (type == 'j') {
 		return new JBlock();
 	}
 	else return NULL;
-}*/
+}
 void Block::rotateClockwise() {
-	if (pos == numPos - 1) {
-		pos = 0;
-	}
-	else {
-		pos += 1;
-	}
+	int bound = numPos - 1;
+	pos == bound ? pos = 0 : pos+= 1;
 	current = possibilities[pos];
 }
 
@@ -69,17 +71,40 @@ void Block::rotateCounterClockwise() {
 	current = possibilities[pos];
 }
 void Block::left(){
-	
+	c = c-1;	
 
 }
 
-/*
-void Block::printCurrent() {
+void Block::right(){
+	c = c+1;
+}
+
+void Block::down(){
+	r = r-1;
+}
+
+void Block::up(){
+	r = r+1;
+}
+
+int Block::getR(){
+	return r;
+}
+
+int Block::getC(){
+	return c;
+}
+
+
+std::vector<std::vector<char>> Block::getCurrent() {
+	return current;
+	/*
 	for (int r = 0; r < dim; ++r) {
 		for (int c = 0; c < dim; ++c) {
 			cout << current[r][c].getType();
 		}
 		cout << endl;
 	}
+	*/
 }
-*/		
+

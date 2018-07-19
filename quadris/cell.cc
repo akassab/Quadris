@@ -1,39 +1,33 @@
 #include "cell.h"
 
-Cell::Cell(int nx, int ny): x{nx}, y{ny} {
-	type = ' ';
-}
+
+Cell::Cell(int r, int c): r{r}, c{c}, type{' '} {}
 
 Cell::~Cell() {
 }
 
-Cell::Cell(char t, int nx, int ny): x{nx}, y{ny} {
-	type = t;
-}
-
-int Cell::getX() {
-	return x;
-}
-
-int Cell::getY() {
-	return y;
-}
-
-void Cell::setX(int n) {
-	x = n;
-}
-
-void Cell::setY(int n) {
-	y = n;
-}
 
 char Cell::getType() {
 	return type;
 }
 
+void Cell::setR(int x){
+	r = x;
+}
 
+void Cell::setC(int y){
+	c = y;
+}
 
+int Cell::getR(){
+	return r;
+}
 
+int Cell::getC(){
+	return c;
+}
 
-
+void Cell::setType(char type){
+	this->type = type;
+}
 
