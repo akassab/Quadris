@@ -4,30 +4,30 @@
 
 using namespace std;
 
-void TextDisplay::notify(Subject &whoNotified){
+void TextDisplay::notify(Board &whoNotified){
 	level = whoNotified.getLevel();
 	score = whoNotified.getScore();
-	vector<vector<char>> board;
-	board = whoNotified.getCells();
-	for(int i = 0; i< 18; ++i){
-		for(int j = 0; j<11; j++){
-			theDisplay[i][j] = board[i][j];	
-		}
-	}
 	
-	
-
 }
 
+void TextDisplay::notify(Cell &whoNotified){
+	int r = whoNotified.getR();
+	int c = whoNotified.getC();
+	char type = whoNotified.getType();
+	theDisplay[r][c] = type;
+}
+
+
+
 ostream &operator<<(ostream &out, const TextDisplay &td){
-	out << "Level:   " << lvl << endl;
-	out << "Score:   " << score << endl;
-	out << "Hi Score:    " << hiscore << endl;
+	out << "Level:   " << td.level << endl;
+	out << "Score:   " << td.score << endl;
+	out << "Hi Score:    " << td.hiscore << endl;
 	out << "-----------" << endl;
 
 	for(int i = 0; i< 18; ++i){
 		for(int j = 0; j< 11; ++j){
-			out << theDisplay[i][j];
+			out << td.theDisplay[i][j];
 		}
 		out << endl;
 	}	

@@ -1,7 +1,7 @@
 #include "cell.h"
 
 
-Cell::Cell(int r, int c): r{r}, c{c}, type{' '} {}
+Cell::Cell(int r, int c): r{r}, c{c}, type{' '}, set{false} {}
 
 Cell::~Cell() {
 }
@@ -17,6 +17,10 @@ void Cell::setR(int x){
 
 void Cell::setC(int y){
 	c = y;
+}
+
+void Cell::setcell(bool flag){
+	set = flag;
 }
 
 int Cell::getR(){

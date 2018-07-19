@@ -26,16 +26,16 @@ void Board::init(){
 	// Ayman needs clarifcation here
 	current = Block::Create(newBlk);	
 	for(unsigned int i =0; i<18; ++i){ //create new board
-		vector<char> row;
+		vector<Cell> row;
 		for(unsigned int j = 0; j<11; ++j){
-			row.push_back(' ');
+			row.push_back(Cell(i,j));//push row onto board
 		}
 		board.push_back(row);
 	}
 
 }
 
-
+/*
 void Board::print() {
 	for (int i = 0; i < 18; ++i) {
 		for (int j = 0; j < 11; ++j) {
@@ -54,7 +54,7 @@ void Board::clearNew() {
 		}
 	}
 }
-
+*/
 
 
 void Board::right(){
@@ -88,7 +88,7 @@ void Board::down(){
 }
 
 void Board::drop(){
-	setonBoard();//set the current Block on the board
+	droponBoard();//set the current Block on the board
 	delete current;
 	current = Block::Create(newBlk);
 	if(checkFit()){
@@ -98,6 +98,14 @@ void Board::drop(){
 	else{
 		//end game
 	}
+}
+
+void Board::clockwise(){
+
+}
+
+void Board::cclockwise(){
+
 }
 
 void Board::changeNextBlk(char type){
@@ -126,25 +134,32 @@ bool Board::checkFit(){
 }
 
 bool Board::isFull(int r, int c){
-<<<<<<< HEAD
 	// ayman adding stuff here
-	if (board[r][c] != ' ') {
-		return false;}
-	return true;
-=======
 	if(r>17 || r<0 || c>10 || c<0){
 		return false;
 	}
 	if(board[r][c].getType() == ' '){
-		return true;
-	}else{
 		return false;
+	}else{
+		return true;
 	}
->>>>>>> 7e1efc8be93c8ff618769a0644f0f74f42d2c36a
 }
+
+void Board::levelup(){
+	level ++;
 	
 
-void Board::setonBoard(){
+}
+
+void Board::leveldown(){
+	level --;
+
+}
+
+
+	
+//Ayman setonBoard was supposed to drop on board not just set it on
+void Board::putonBoard(){
 	// ayman adding stuff here
 	int dim = current->getDim();
 	vector<vector<char>> coords;
@@ -154,9 +169,29 @@ void Board::setonBoard(){
 	for (int i = 0; i < dim; ++i) {
 		for (int j = 0; j < dim; ++j) {
 			if (coords[i][j] != ' ') {
-				board[r+i][c+j] = coords[i][j];
+				board[r+i][c+j].setType(coords[i][j]);
 			}
 		}
 	}
 }
-	
+
+void Board::droponBoard(){
+	int c = current->getC();
+	int r = current->getR();
+	while(true){
+		c --;
+		if(!checkFit() || c<0){
+			break;
+		}
+	}
+	c++;
+
+}
+
+int Board::getLevel(){
+	return level;
+}
+
+int Board::getScore(){
+	return s->getScore();
+}	

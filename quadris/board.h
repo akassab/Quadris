@@ -13,7 +13,7 @@ class Block;
 class Observer;
 
 class Board: public Subject { 
-	std::vector<std::vector<char>> board;
+	std::vector<std::vector<Cell>> board;
 	Block *current = nullptr;
 	newBlock *nb = nullptr;
 	char newBlk;
@@ -21,8 +21,7 @@ class Board: public Subject {
 	Score *s = nullptr;
 	int level;
 	bool isFull(int r, int c); //checks if cell is full
-	public:
-	void setonBoard(); //sets current onto the board (drop)
+	void droponBoard(); //sets current onto the board (drop)
 	public:
 	void init();
 	
@@ -38,7 +37,7 @@ class Board: public Subject {
 	void cclockwise();
 	//
 
-	
+	void putonBoard();
 
 	//User interactions
 	void changeNextBlk(char type);
@@ -50,6 +49,8 @@ class Board: public Subject {
 	bool getLost();
 	Block getNewBlock();
 	Block getCurrent();
+	void levelup();
+	void leveldown();
 	int getLevel();
 	char getType(int x, int y);
 	//

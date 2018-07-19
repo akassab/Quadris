@@ -1,2 +1,2 @@
-sblock.o: sblock.cc sblock.h block.h board.h cell.h newblock.h score.h \
- observer.h subject.h
+sblock.o: sblock.cc sblock.h block.h board.h cell.h subject.h observer.h \
+ newblock.h score.h

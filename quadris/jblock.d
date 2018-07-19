@@ -1,2 +1,2 @@
-jblock.o: jblock.cc jblock.h block.h board.h cell.h newblock.h score.h \
- observer.h subject.h
+jblock.o: jblock.cc jblock.h block.h board.h cell.h subject.h observer.h \
+ newblock.h score.h
