@@ -139,7 +139,7 @@ bool Board::isFull(int r, int c){
 	if(r>17 || r<0 || c>10 || c<0){
 		return false;
 	}
-	if(getType(board[r][c]) == ' '){
+	if(board[r][c].getType() == ' '){
 		return true;
 	}else{
 		return false;
