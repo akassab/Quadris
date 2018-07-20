@@ -17,6 +17,7 @@ Board::Board() {
 */
 
 void Board::init(){
+	id = 0;
 	score = 0;
 	level = 0;
 	delete td;
@@ -76,13 +77,33 @@ void Board::clearNew() {
 
 void Board::right(){
 	current->right();
+	int r = current->getR();
+	int c = current->getC();
+	int dim = current->getDim();
+
+	
 	if(checkFit()){
-		notifyObservers();
+		cout << "hi1" << endl;
+		removeBlock(r,c-1);
+		cout << "hi2" << endl;
+		putonBoard();
+		cout << "hi3" << endl;
+		/*
+		for (int i = 0; i < dim; ++i) {
+			for (int j = 0; j < dim; ++j) {
+				if (current->getChar(i,j) != ' ') {
+					board[i+r][j+c-1].setType(current->getChar(i,j));
+				}
+			}
+		} */	
+		
 	}
 	else{
 		current->left();
 	}
 }
+
+
 
 
 void Board::left(){
@@ -118,10 +139,22 @@ void Board::drop(){
 
 void Board::clockwise(){
 	current->rotateClockwise();
+	if (checkFit()) {
+		putonBoard();
+	}
+	else {
+		current->rotateCounterClockwise();
+	}
 }
 
 void Board::cclockwise(){
 	current->rotateCounterClockwise();
+	if (checkFit()) {
+		putonBoard();
+	}
+	else {
+		current->rotateCounterClockwise();
+	}
 }
 
 void Board::changeNextBlk(char type){
@@ -143,6 +176,7 @@ bool Board::checkFit(){
 		for(int j = 0; j<dim; ++j){
 			if(isFull(i+r, j+c) && current->getChar(i,j) != ' '){
 				return false;
+	
 			} 
 		}
 	}
@@ -150,13 +184,21 @@ bool Board::checkFit(){
 }
 
 bool Board::isFull(int r, int c){
-	// ayman adding stuff here
+	//cout << "r is: " << r << "c is: " << c << endl;
 	if(r>17 || r<0 || c>10 || c<0){
-		return false;
+		return true;
 	}
 	if(board[r][c].getType() == ' '){
 		return false;
-	}else{
+	}
+		
+	if (board[r][c].getId() == id) {
+		return false;
+	}
+	
+	
+	
+	else{
 		return true;
 	}
 }
@@ -185,12 +227,35 @@ void Board::putonBoard(){
 	for (int i = 0; i < dim; ++i) {
 		for (int j = 0; j < dim; ++j) {
 			char chr = current->getChar(i,j);
-			if (chr != ' ') {
+			if(!((r+i)>17 || (c+j) >10 || (r+i) < 0 || (c+j) < 0)) {
+				
 				board[r+i][c+j].setType(chr);
+				board[r+i][c+j].setId(id);
+			
 			}
 		}
 	}
 }
+
+void Board::removeBlock(int r, int c){
+// ayman adding stuff here
+        int dim = current->getDim();
+        for (int i = 0; i < dim; ++i) {
+                for (int j = 0; j < dim; ++j) {
+                        char chr = current->getChar(i,j);
+                        if (chr != ' ') {
+                                board[r+i][c+j].setType(' ');
+                                board[r+i][c+j].setId(id);
+                        }
+                }
+        }
+	
+
+
+}
+
+
+
 
 void Board::droponBoard(){
 	int c = current->getC();

@@ -12,6 +12,7 @@ class Observer;
 class TextDisplay;
 
 class Board: public Subject { 
+	int id; // id of current block
 	TextDisplay *td = nullptr; //the textdisplay!
 	std::vector<std::vector<Cell>> board; //vector cells representing the quadris board
 	Block *current = nullptr; //the current block being moved
@@ -33,7 +34,7 @@ class Board: public Subject {
 	void clockwise();
 	void cclockwise();
 	//
-
+	void removeBlock(int r, int c); //removes previous position of current block from board
 	void putonBoard(); //places current piece on board for display
 
 	//User interactions

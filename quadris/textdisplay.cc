@@ -30,7 +30,7 @@ void TextDisplay::notify(Subject &whoNotified){
 ostream &operator<<(ostream &out, const TextDisplay &td){
 	out << "Level:   " << td.level << endl;
 	out << "Score:   " << td.score << endl;
-	out << "Hi Score:    " << td.hiscore << endl;
+	out << "Hi Score: " << td.hiscore << endl;
 	out << "-----------" << endl;
 
 	for(int i = 0; i< 18; ++i){

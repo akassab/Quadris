@@ -48,32 +48,3 @@ int main() {
 		b->print();
 	}
 }
-	
-	//		b->newBlock('L');
-	//		b->print();
-	/*
-	Block *b = new LBlock();
-	board->newBlock(b);
-	string input;
-	while (cin >> input) {
-		if (input == "r") {
-			b->rotateClockwise();
-		}
-		else if (input == "c") {
-			b->rotateCounterClockwise();
-		}
-		else if (b = Block::Create(input)) {
-			board->newBlock(b);
-
-		}
-		board->print();
-		
-	}
-	*/
-	
-
-
-	
-
-
-

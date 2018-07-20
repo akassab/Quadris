@@ -10,6 +10,7 @@
 
 using namespace std;
 Block::Block(int gridDim, int numPossibilities) {
+
 	r = 0;
 	c = 0;
 	pos = 0;
@@ -26,6 +27,13 @@ Block::Block(int gridDim, int numPossibilities) {
 		}
 	}
 }
+
+
+
+
+
+
+
 
 int Block::getDim(){
 	return dim;
@@ -55,6 +63,7 @@ Block *Block::Create(char type) {
 	}
 	else return NULL;
 }
+
 void Block::rotateClockwise() {
 	int bound = numPos - 1;
 	pos == bound ? pos = 0 : pos+= 1;
@@ -72,7 +81,6 @@ void Block::rotateCounterClockwise() {
 }
 void Block::left(){
 	c = c-1;	
-
 }
 
 void Block::right(){

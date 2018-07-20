@@ -3,7 +3,8 @@
 #include <iostream>
 using namespace std;
 
-Cell::Cell(int r, int c): r{r}, c{c}, type{' '}, set{false} {}
+Cell::Cell(int r, int c):  r{r}, c{c}, type{' '}, set{false} {}
+
 
 Cell::~Cell() {
 }
@@ -38,4 +39,13 @@ void Cell::setType(char type){
 	cout<<"setType"<<endl;
 	notifyObservers();
 }
+
+void Cell::setId(int i) {
+	id = i;
+}
+
+int Cell::getId() {
+	return id;
+}
+
 

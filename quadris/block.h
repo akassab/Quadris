@@ -5,6 +5,10 @@
 #include "board.h"
 class Block {
 	protected:
+
+
+
+
 	int r;//coordinates of lower left corner
 	int c;
 	// dimension of every orientation 
@@ -19,6 +23,7 @@ class Block {
 	std::vector<std::vector<std::vector<char>>> possibilities;
 	public: 
 		Block(int gridDim, int numPossibilities);
+
 		char getChar(int r, int c);
 		static Block *Create(char type);
 		void rotateClockwise();
@@ -34,5 +39,6 @@ class Block {
 		std::vector<std::vector<char>> getCurrent(); //returns vector of positions
 		// print the current orientation
 		//void printCurrent();
+		static void setBlocksSoFar();
 };
 #endif
