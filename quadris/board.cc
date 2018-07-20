@@ -34,8 +34,14 @@ void Board::init(){
 		vector<Cell> row;
 		for(unsigned int j = 0; j<11; ++j){
 			row.push_back(Cell(i,j));//push row onto board
+			
 		}
 		board.push_back(row);
+	}
+	for(unsigned int i = 0; i<18; ++i){
+		for(unsigned int j = 0; j<11; ++j){
+			board[i][j].attach(td);
+		}
 	}
 	putonBoard();
 	newBlk = nb->generatenew();

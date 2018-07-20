@@ -8,21 +8,17 @@ using namespace std;
 void TextDisplay::notify(Board &whoNotified){
 	level = whoNotified.getLevel();
 	score = whoNotified.getScore();
-	cout<<"hi"<<endl;	
 }
 
 void TextDisplay::notify(Cell &whoNotified){
 	int r = whoNotified.getR();
 	int c = whoNotified.getC();
 	char type = whoNotified.getType();
-	cout<<"hielo"<<endl;
 	theDisplay[r][c] = type;
 }
 
 void TextDisplay::notify(Subject &whoNotified){
-		cout<<"okk"<<endl;
 		Subject* subptr = &whoNotified;
-		cout<<"Okkkkk"<<endl;
                 if(Board* b = dynamic_cast<Board *>(subptr)){
                         notify(*b);
                 }else if (Cell* c = dynamic_cast<Cell *>(subptr)){
