@@ -9,8 +9,7 @@ public:
 	void rand(bool random);
 	void replace(char type);
 	void setLvl(int lvl);
-	void generatenew();
-	char getnewBlk();
+	char generatenew();
 	newBlock();
 };
 

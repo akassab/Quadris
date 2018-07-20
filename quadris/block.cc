@@ -32,25 +32,25 @@ int Block::getDim(){
 }
 
 Block *Block::Create(char type) {
-	if (type == 'i') {
+	if (type == 'I') {
 		return new IBlock();
 	}
-	else if (type == 'o') {
+	else if (type == 'O') {
 		return new OBlock();
 	}
-	else if (type == 't') {
+	else if (type == 'T') {
 		return new TBlock();
 	}
-	else if (type == 's') {
+	else if (type == 'S') {
 		return new SBlock();
 	}
-	else if (type == 'z') {
+	else if (type == 'Z') {
 		return new ZBlock();
 	}
-	else if (type == 'l') {
+	else if (type == 'L') {
 		return new LBlock();
 	}
-	else if (type == 'j') {
+	else if (type == 'J') {
 		return new JBlock();
 	}
 	else return NULL;
@@ -95,6 +95,9 @@ int Block::getC(){
 	return c;
 }
 
+char Block::getChar(int r, int c){
+	return current[r][c];
+}
 
 std::vector<std::vector<char>> Block::getCurrent() {
 	return current;

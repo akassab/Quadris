@@ -1,5 +1,7 @@
 #include "cell.h"
-
+#include <string>
+#include <iostream>
+using namespace std;
 
 Cell::Cell(int r, int c): r{r}, c{c}, type{' '}, set{false} {}
 
@@ -33,5 +35,7 @@ int Cell::getC(){
 
 void Cell::setType(char type){
 	this->type = type;
+	cout<<"setType"<<endl;
+	notifyObservers();
 }
 

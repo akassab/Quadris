@@ -19,6 +19,7 @@ class Block {
 	std::vector<std::vector<std::vector<char>>> possibilities;
 	public: 
 		Block(int gridDim, int numPossibilities);
+		char getChar(int r, int c);
 		static Block *Create(char type);
 		void rotateClockwise();
 		void rotateCounterClockwise();

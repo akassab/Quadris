@@ -1,6 +1,8 @@
 #include "subject.h"
 #include <vector>
-
+#include <string>
+#include <iostream>
+using namespace std;
 
 Subject::Subject() {}
 Subject::~Subject() {}
@@ -21,7 +23,6 @@ void Subject::detach(Observer *o){
 
 void Subject::notifyObservers(){
 	for (auto ob : observers) ob->notify(*this);
-
 }
 
 

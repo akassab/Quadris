@@ -17,11 +17,7 @@ void newBlock::setLvl(int lvl){
 	level = lvl;
 }
 
-char newBlock::getnewBlk(){
-	return type;
-}
-
-void newBlock::generatenew(){
+char newBlock::generatenew(){
 	if(level ==0){
 
 	}else if(level == 1){
@@ -37,6 +33,6 @@ void newBlock::generatenew(){
 	}else if(level == 6){
 
 	}
-
+	return 'I';
 
 }

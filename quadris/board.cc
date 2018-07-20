@@ -20,14 +20,16 @@ void Board::init(){
 	score = 0;
 	level = 0;
 	delete td;
+	(*this).detach(td);
 	td = new TextDisplay(); 
+	(*this).attach(td);
 	delete s;
 	s = new Score();
 	delete nb;
 	nb = new newBlock();
-	newBlk = nb->getnewBlk();
+	newBlk = nb->generatenew();
 	// Ayman needs clarifcation here
-	current = Block::Create(newBlk);	
+	current = Block::Create(newBlk);
 	for(unsigned int i =0; i<18; ++i){ //create new board
 		vector<Cell> row;
 		for(unsigned int j = 0; j<11; ++j){
@@ -35,7 +37,8 @@ void Board::init(){
 		}
 		board.push_back(row);
 	}
-
+	putonBoard();
+	newBlk = nb->generatenew();
 }
 
 void Board::print(){
@@ -100,8 +103,7 @@ void Board::drop(){
 	delete current;
 	current = Block::Create(newBlk);
 	if(checkFit()){
-		nb->generatenew();
-		newBlk = nb->getnewBlk();
+		newBlk = nb->generatenew();
 	}
 	else{
 		//end game
@@ -127,13 +129,13 @@ void Board::random(bool random){
 
 bool Board::checkFit(){
 	int dim = current->getDim();
-	vector<vector<char>> coords;
-	coords = current->getCurrent();
+	//vector<vector<char>> coords;
+	//coords = current->getCurrent();
 	int r = current->getR();
 	int c = current->getC();
 	for(int i =0; i< dim; ++i){
 		for(int j = 0; j<dim; ++j){
-			if(isFull(i+r, j+c) && coords[i][j] != ' '){
+			if(isFull(i+r, j+c) && current->getChar(i,j) != ' '){
 				return false;
 			} 
 		}
@@ -170,14 +172,15 @@ void Board::leveldown(){
 void Board::putonBoard(){
 	// ayman adding stuff here
 	int dim = current->getDim();
-	vector<vector<char>> coords;
-	coords = current->getCurrent();
 	int r = current->getR();
+	cout<<r<<endl;
 	int c = current->getC();
+	cout<<c<<endl;
 	for (int i = 0; i < dim; ++i) {
 		for (int j = 0; j < dim; ++j) {
-			if (coords[i][j] != ' ') {
-				board[r+i][c+j].setType(coords[i][j]);
+			char chr = current->getChar(i,j);
+			if (chr != ' ') {
+				board[r+i][c+j].setType(chr);
 			}
 		}
 	}
