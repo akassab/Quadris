@@ -11,7 +11,7 @@ class Subject {
 	void detach(Observer *o);
 	void notifyObservers();
 	Subject();
-	~Subject();
+	virtual ~Subject();
 };
 
 

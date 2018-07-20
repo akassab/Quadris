@@ -17,6 +17,14 @@ void TextDisplay::notify(Cell &whoNotified){
 	theDisplay[r][c] = type;
 }
 
+void TextDisplay::notify(Subject &whoNotified){
+		Subject* subptr = &whoNotified;
+                if(Board* b = dynamic_cast<Board *>(subptr)){
+                        notify(*b);
+                }else if (Cell* c = dynamic_cast<Cell *>(subptr)){
+                        notify(*c);
+                }
+}
 
 
 ostream &operator<<(ostream &out, const TextDisplay &td){

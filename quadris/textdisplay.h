@@ -14,6 +14,7 @@ class TextDisplay: public Observer{
 	char nextblock;
 	public:
 	TextDisplay();
+	void notify(Subject &whoFrom);
 	void notify(Board &whoFrom);
 	void notify(Cell &whoFrom);
 	friend std::ostream &operator<<(std::ostream &out, const TextDisplay &td);

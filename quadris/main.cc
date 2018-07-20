@@ -14,7 +14,7 @@ int main() {
 	Board *b = new Board();	
 	b->init();
 	string cmd;
-//	b->print();
+	b->print();
 	
 	while(true){
 		cin>>cmd;
@@ -45,6 +45,7 @@ int main() {
 		else if (cmd == "restart"){
 			b->init();
 		}
+		b->print();
 	}
 }
 	

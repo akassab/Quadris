@@ -1,5 +1,6 @@
 #include "block.h"
 #include "board.h"
+#include "textdisplay.h"
 #include "newblock.h"
 #include "score.h"
 #include "subject.h"
@@ -18,6 +19,8 @@ Board::Board() {
 void Board::init(){
 	score = 0;
 	level = 0;
+	delete td;
+	td = new TextDisplay(); 
 	delete s;
 	s = new Score();
 	delete nb;
@@ -34,6 +37,11 @@ void Board::init(){
 	}
 
 }
+
+void Board::print(){
+	cout << (*td);
+}
+
 
 /*
 void Board::print() {
@@ -101,11 +109,11 @@ void Board::drop(){
 }
 
 void Board::clockwise(){
-
+	current->rotateClockwise();
 }
 
 void Board::cclockwise(){
-
+	current->rotateCounterClockwise();
 }
 
 void Board::changeNextBlk(char type){
@@ -194,4 +202,6 @@ int Board::getLevel(){
 
 int Board::getScore(){
 	return s->getScore();
-}	
+}
+
+	

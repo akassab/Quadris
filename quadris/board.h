@@ -3,31 +3,28 @@
 #include <iostream>
 #include <vector>
 #include "cell.h"
-#include "block.h"
 #include "newblock.h"
 #include "score.h"
-#include "observer.h"
 #include "subject.h"
 
 class Block;
 class Observer;
+class TextDisplay;
 
 class Board: public Subject { 
-	std::vector<std::vector<Cell>> board;
-	Block *current = nullptr;
-	newBlock *nb = nullptr;
-	char newBlk;
-	int score;
-	Score *s = nullptr;
-	int level;
+	TextDisplay *td = nullptr; //the textdisplay!
+	std::vector<std::vector<Cell>> board; //vector cells representing the quadris board
+	Block *current = nullptr; //the current block being moved
+	newBlock *nb = nullptr; //the next block to be displayed
+	char newBlk; //the char of the next block to be displayed
+	int score; //the score
+	Score *s = nullptr;//score class
+	int level;//level
 	bool isFull(int r, int c); //checks if cell is full
 	void droponBoard(); //sets current onto the board (drop)
 	public:
-	void init();
-	
-	
-	bool checkFit();
-
+	void init();//initialized board
+	bool checkFit();//checks if piece fits in board
 	//User current block transformations/moves
 	void right();
 	void left();
@@ -37,7 +34,7 @@ class Board: public Subject {
 	void cclockwise();
 	//
 
-	void putonBoard();
+	void putonBoard(); //places current piece on board for display
 
 	//User interactions
 	void changeNextBlk(char type);
@@ -56,10 +53,7 @@ class Board: public Subject {
 	//
 
 	int setLevel(int level);	
-	
 
-	//void draw();
-	//void print();
 	void clearNew();
 
 	//print
