@@ -210,8 +210,11 @@ void Board::putonBoard(){
 		for (int j = 0; j < dim; ++j) {
 			char chr = current->getChar(i,j);
 			if(!((r+i)>17 || (c+j) >10 || (r+i) < 0 || (c+j) < 0)) {
-				
 				board[r+i][c+j].setType(chr);
+				if(chr == 'I'){
+				cout << "row" << r+i << endl;
+				cout << "col" << c+j << endl;
+				}
 				board[r+i][c+j].setId(id);
 			
 			}

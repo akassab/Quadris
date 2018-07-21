@@ -1,7 +1,7 @@
 #include "iblock.h"
 #include "block.h"
 IBlock::IBlock(): Block{4, 2} {
-	r = 3;
+	r = 0;
 	c = 0;
 	for (int i = 0; i < 4; ++i) {
 		possibilities[0][3][i] = 'I';
