@@ -46,17 +46,7 @@ void Board::print(){
 }
 
 
-/*
 
-void Board::clearNew() {
-	for (int i = 0; i < 4; ++i) {
-		for (int r = 0; r < 11; ++r) {
-			board[i][r] = ' ';
-		}
-	}
-}
-
-*/
 
 void Board::right(){
 	current->right();
@@ -101,7 +91,7 @@ void Board::down(){
 }
 
 bool Board::drop(){
-	droponBoard();//set the current Block on the board
+	droponBoard();//set the current Block on the boardi
 	delete current;
 	current = Block::Create(newBlk); //create the new current block
 	if(checkFit()){
@@ -146,14 +136,13 @@ void Board::random(bool random){
 
 bool Board::checkFit(){
 	int dim = current->getDim();
-	//vector<vector<char>> coords;
-	//coords = current->getCurrent();
 	int r = current->getR();
 	int c = current->getC();
 	r = r - dim + 1;
 	for(int i =0; i< dim; ++i){
 		for(int j = 0; j<dim; ++j){
 			if(isFull(i+r, j+c) && current->getChar(i,j) != ' '){
+				cout << "I return false" << endl;
 				return false;
 	
 			} 
@@ -167,19 +156,20 @@ bool Board::isFull(int r, int c){
 	if(r>17 || r<0 || c>10 || c<0){
 		return true;
 	}
-	if(board[r][c].getType() == ' '){
+	if(!(board[r][c].getSet())){
+		
 		return false;
 	}
-		
+	else{
+		cout << "i fuckedu " << endl;
+		return true;
+	}
+	/*		
 	if (board[r][c].getId() == id) {
 		return false;
 	}
-	
-	
-	
-	else{
-		return true;
-	}
+	*/
+
 }
 
 void Board::levelup(){
@@ -196,8 +186,7 @@ void Board::leveldown(){
 
 	
 //Ayman setonBoard was supposed to drop on board not just set it on
-void Board::putonBoard(){
-	// ayman adding stuff here
+void Board::putonBoard(bool flag){
 	int dim = current->getDim();
 	int r = current->getR();
 	int c = current->getC();
@@ -207,6 +196,9 @@ void Board::putonBoard(){
 			char chr = current->getChar(i,j);
 			if(!((r+i)>17 || (c+j) >10 || (r+i) < 0 || (c+j) < 0)) {
 				board[r+i][c+j].setType(chr);
+				if(flag && chr != ' '){
+					board[r+i][c+j].setcell(true);
+				}
 				board[r+i][c+j].setId(id);
 			
 			}
@@ -215,7 +207,6 @@ void Board::putonBoard(){
 }
 
 void Board::removeBlock(int r, int c){
-// ayman adding stuff here
         int dim = current->getDim();
 	r = r - dim + 1;
         for (int i = 0; i < dim; ++i) {
@@ -236,6 +227,8 @@ void Board::removeBlock(int r, int c){
 
 
 void Board::droponBoard(){
+	int c = current->getC();
+	cout << "hi" << endl;
 	while(true){
 		int r = current->getR();
 		down();
@@ -243,7 +236,11 @@ void Board::droponBoard(){
 		if(r == r2 || r == 0){
 			break;
 		}
+		else{
+			//removeBlock(r,c-1);
+		}
 	}
+	putonBoard(true);
 
 }
 

@@ -23,7 +23,12 @@ void Cell::setC(int y){
 }
 
 void Cell::setcell(bool flag){
+	cout << "row: " << r << "col: " << c << endl;
 	set = flag;
+}
+
+bool Cell::getSet(){
+	return set;
 }
 
 int Cell::getR(){

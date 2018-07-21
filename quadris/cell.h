@@ -11,6 +11,7 @@ class Cell : public Subject {
 	explicit Cell(int r, int c);
 
 	~Cell();
+	bool getSet();
 	explicit Cell(char t);
 	char getType();
 	void setType(char type);
