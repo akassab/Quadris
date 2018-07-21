@@ -22,7 +22,6 @@ void Board::init(){
 	delete nb;
 	nb = new newBlock();
 	newBlk = nb->generatenew();
-	// Ayman needs clarifcation here
 	current = Block::Create(newBlk);
 	for(unsigned int i =0; i<18; ++i){ //create new board
 		vector<Cell> row;
@@ -34,7 +33,7 @@ void Board::init(){
 	}
 	for(unsigned int i = 0; i<18; ++i){
 		for(unsigned int j = 0; j<11; ++j){
-			board[i][j].attach(td);
+			board[i][j].attach(td);//attach textdisplay object for every cell on board
 		}
 	}
 	putonBoard();
@@ -45,9 +44,6 @@ void Board::print(){
 	cout << (*td);
 }
 
-
-
-
 void Board::right(){
 	current->right();
 	int r = current->getR();
@@ -55,7 +51,6 @@ void Board::right(){
 	if(checkFit()){
 		removeBlock(r,c-1);
 		putonBoard();
-		
 	}
 	else{
 		current->left();
@@ -91,19 +86,50 @@ void Board::down(){
 }
 
 bool Board::drop(){
-	droponBoard();//set the current Block on the boardi
+	droponBoard();//set the current Block on the board
+	int rows = checkRows();//check for completed rows
+	//increase score here	
 	delete current;
 	current = Block::Create(newBlk); //create the new current block
-	if(checkFit()){
-		newBlk = nb->generatenew();
-		putonBoard();
-		return true;
+	if(!checkFit()){
+		return false; //the game is over!
 	}
-	else{
-		//end game
-		return false;
-	}
+	newBlk = nb->generatenew(); //generate new newblock
+	putonBoard(); //place new current on top left of board
+	return true;
 }
+
+int Board::checkRows(){
+	int counter = 0; //how many full rows there are
+	for(int i = 0; i< 18; i++){
+		int counter2 = 0; //how many items in row are full
+		for(int j = 0; j<11; j++){
+			if(isFull(i,j)){
+				counter2 ++;
+			}
+		}
+		if(counter2 == 11){ //if all cells in row are full
+			for(int c = 0; c<11; ++c){ //delete the row from board
+				board[i][c].setType(' ');
+				board[i][c].setcell(false);
+			}
+			for(int k = i-1; k>=0; k--){
+				for(int c = 0; c<11; ++c){
+					if(board[k][c].getSet()){
+						board[k+1][c].setType(board[k][c].getType());//copy row down one
+						board[k+1][c].setcell(true);
+					}
+					board[k][c].setType(' ');//delete current row
+					board[k][c].setcell(false);
+				}
+				
+			}
+			counter ++;	
+		}
+	}
+	return counter;
+}
+				
 
 void Board::clockwise(){
 	current->rotateClockwise();
@@ -184,8 +210,6 @@ void Board::leveldown(){
 }
 
 
-	
-//Ayman setonBoard was supposed to drop on board not just set it on
 void Board::putonBoard(bool flag){
 	int dim = current->getDim();
 	int r = current->getR();
@@ -236,11 +260,8 @@ void Board::droponBoard(){
 		if(r == r2 || r == 0){
 			break;
 		}
-		else{
-			//removeBlock(r,c-1);
-		}
 	}
-	putonBoard(true);
+	putonBoard(true); //place on board concretely
 
 }
 

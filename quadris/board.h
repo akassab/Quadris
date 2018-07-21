@@ -23,6 +23,7 @@ class Board: public Subject {
 	int level;//level
 	bool isFull(int r, int c); //checks if cell is full
 	void droponBoard(); //sets current onto the board (drop)
+	int checkRows();
 	public:
 	void init();//initialized board
 	bool checkFit();//checks if piece fits in board
@@ -40,7 +41,7 @@ class Board: public Subject {
 	//User interactions
 	void changeNextBlk(char type);
 	void random(bool random);
-
+	
 
 	//Observer accessor functions
 	int getScore();
