@@ -54,16 +54,6 @@ void Board::print(){
 
 
 /*
-void Board::print() {
-	for (int i = 0; i < 18; ++i) {
-		for (int j = 0; j < 11; ++j) {
-			cout << board[i][j];
-		}
-		cout << endl;
-	}
-}
-
-
 
 void Board::clearNew() {
 	for (int i = 0; i < 4; ++i) {
@@ -72,30 +62,16 @@ void Board::clearNew() {
 		}
 	}
 }
-*/
 
+*/
 
 void Board::right(){
 	current->right();
 	int r = current->getR();
 	int c = current->getC();
-	int dim = current->getDim();
-
-	
 	if(checkFit()){
-		cout << "hi1" << endl;
 		removeBlock(r,c-1);
-		cout << "hi2" << endl;
 		putonBoard();
-		cout << "hi3" << endl;
-		/*
-		for (int i = 0; i < dim; ++i) {
-			for (int j = 0; j < dim; ++j) {
-				if (current->getChar(i,j) != ' ') {
-					board[i+r][j+c-1].setType(current->getChar(i,j));
-				}
-			}
-		} */	
 		
 	}
 	else{
@@ -108,8 +84,11 @@ void Board::right(){
 
 void Board::left(){
 	current->left();
+	int r = current->getR();
+	int c = current->getC();
 	if(checkFit()){ //check if block movement fits in board
-		notifyObservers();
+		removeBlock(r,c+1);
+		putonBoard();
 	}
 	else{
 		current->right();
@@ -117,8 +96,11 @@ void Board::left(){
 }
 void Board::down(){
 	current->down();
+	int r = current->getR();
+	int c = current->getC();
 	if(checkFit()){
-		notifyObservers();
+		removeBlock(r-1,c);
+		putonBoard();
 	}
 	else{
 		current->up();
@@ -258,15 +240,14 @@ void Board::removeBlock(int r, int c){
 
 
 void Board::droponBoard(){
-	int c = current->getC();
-	int r = current->getR();
 	while(true){
-		c --;
-		if(!checkFit() || c<0){
+		int r = current->getR();
+		down();
+		int r2 = current->getR();
+		if(r!=r2){
 			break;
 		}
 	}
-	c++;
 
 }
 

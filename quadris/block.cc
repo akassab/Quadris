@@ -88,11 +88,11 @@ void Block::right(){
 }
 
 void Block::down(){
-	r = r-1;
+	r = r+1;
 }
 
 void Block::up(){
-	r = r+1;
+	r = r-1;
 }
 
 int Block::getR(){

@@ -36,7 +36,6 @@ int Cell::getC(){
 
 void Cell::setType(char type){
 	this->type = type;
-	cout<<"setType"<<endl;
 	notifyObservers();
 }
 
