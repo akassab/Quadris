@@ -7,14 +7,7 @@
 #include "observer.h"
 #include "cell.h"
 using namespace std;
-/*
-Board::Board() {
-	board.resize(22);
-	for (int i = 0; i < 22; ++i) {
-		board[i].resize(13);
-	}
-}
-*/
+
 
 void Board::init(){
 	id = 0;
@@ -107,15 +100,18 @@ void Board::down(){
 	}
 }
 
-void Board::drop(){
+bool Board::drop(){
 	droponBoard();//set the current Block on the board
 	delete current;
-	current = Block::Create(newBlk);
+	current = Block::Create(newBlk); //create the new current block
 	if(checkFit()){
 		newBlk = nb->generatenew();
+		putonBoard();
+		return true;
 	}
 	else{
 		//end game
+		return false;
 	}
 }
 
@@ -154,6 +150,7 @@ bool Board::checkFit(){
 	//coords = current->getCurrent();
 	int r = current->getR();
 	int c = current->getC();
+	r = r - dim + 1;
 	for(int i =0; i< dim; ++i){
 		for(int j = 0; j<dim; ++j){
 			if(isFull(i+r, j+c) && current->getChar(i,j) != ' '){
@@ -203,18 +200,13 @@ void Board::putonBoard(){
 	// ayman adding stuff here
 	int dim = current->getDim();
 	int r = current->getR();
-	cout<<r<<endl;
 	int c = current->getC();
-	cout<<c<<endl;
+	r = r - dim +1; // start from top right
 	for (int i = 0; i < dim; ++i) {
 		for (int j = 0; j < dim; ++j) {
 			char chr = current->getChar(i,j);
 			if(!((r+i)>17 || (c+j) >10 || (r+i) < 0 || (c+j) < 0)) {
 				board[r+i][c+j].setType(chr);
-				if(chr == 'I'){
-				cout << "row" << r+i << endl;
-				cout << "col" << c+j << endl;
-				}
 				board[r+i][c+j].setId(id);
 			
 			}
@@ -225,6 +217,7 @@ void Board::putonBoard(){
 void Board::removeBlock(int r, int c){
 // ayman adding stuff here
         int dim = current->getDim();
+	r = r - dim + 1;
         for (int i = 0; i < dim; ++i) {
                 for (int j = 0; j < dim; ++j) {
                         char chr = current->getChar(i,j);
@@ -247,7 +240,7 @@ void Board::droponBoard(){
 		int r = current->getR();
 		down();
 		int r2 = current->getR();
-		if(r!=r2){
+		if(r == r2 || r == 0){
 			break;
 		}
 	}

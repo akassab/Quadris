@@ -15,36 +15,38 @@ int main() {
 	b->init();
 	string cmd;
 	b->print();
-	
+	bool game = true; //if game is not over
 	while(true){
 		cin>>cmd;
-		if(cmd == "left"){
+		if(cmd == "left" && game){
 			b->left();
 		}
-		else if (cmd == "right"){
+		else if (cmd == "right"&& game){
 			b->right();
 		}
-		else if (cmd == "down"){
+		else if (cmd == "down" && game){
 			b->down();
 		}
-		else if (cmd == "clockwise"){
+		else if (cmd == "clockwise" && game){
 			b->clockwise();
 		}
-		else if (cmd == "counterclockwise"){
+		else if (cmd == "counterclockwise" && game){
 			b->cclockwise();
 		}
-		else if (cmd == "drop"){
-			b->drop();
+		else if (cmd == "drop" && game){
+			game = b->drop();
 		}
-		else if (cmd == "levelup"){
+		else if (cmd == "levelup" && game){
 			b->levelup();
 		}
-		else if (cmd == "leveldown"){
+		else if (cmd == "leveldown" && game){
 			b->leveldown();
 		}
 		else if (cmd == "restart"){
 			b->init();
 		}
-		b->print();
+		if(game){
+			b->print();
+		}
 	}
 }

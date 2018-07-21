@@ -29,7 +29,7 @@ class Board: public Subject {
 	//User current block transformations/moves
 	void right();
 	void left();
-	void drop();
+	bool drop();
 	void down();
 	void clockwise();
 	void cclockwise();
