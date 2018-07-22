@@ -37,9 +37,9 @@ class Board: public Subject {
 	//
 	void removeBlock(int r, int c); //removes previous position of current block from board
 	void putonBoard(bool flag= false, bool flag2 = false); //places current piece on board for display
-
+	//first field is for if it should be firmly put on board, second field for if blank cells should be put on board as well(rotations)
 	//User interactions
-	void changeNextBlk(char type);
+	void replace(char type);
 	void random(bool random);
 	
 
