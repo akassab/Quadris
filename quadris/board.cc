@@ -169,6 +169,7 @@ bool Board::checkFit(){
 	for(int i =0; i< dim; ++i){
 		for(int j = 0; j<dim; ++j){
 			if(isFull(i+r, j+c) && current->getChar(i,j) != ' '){
+				cout<<"it doesn't" << endl;
 				return false;
 	
 			} 
@@ -183,21 +184,13 @@ bool Board::isFull(int r, int c){
 	if(r>17 || r<0 || c>10 || c<0){ //if it is outside boundaries return true
 		return true;
 	}
-	if(!(board[r][c].getSet())){ //if it is not set on board, return false
-		
-		return false;
-	}
-	else if (board[r][c].getId() == id) {
+	if(!(board[r][c].getSet())){ //if it is not set on board, return false		
 		return false;
 	}
 	else{
 		return true;
 	}
-		
-
-
-
-
+	
 
 }
 
@@ -267,7 +260,7 @@ void Board::removeBlock(int r, int c){
 
 void Board::droponBoard(){
 	int c = current->getC();
-	cout << "hi" << endl;
+	
 	while(true){
 		int r = current->getR();
 		down();
