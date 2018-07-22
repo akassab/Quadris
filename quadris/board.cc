@@ -98,6 +98,7 @@ bool Board::drop(){
 	if(!checkFit()){
 		return false; //the game is over!
 	}
+	checkRows();
 	newBlk = nb->generatenew(); //generate new newblock
 	putonBoard(); //place new current on top left of board
 	return true;
@@ -173,6 +174,7 @@ bool Board::checkFit(){
 			} 
 		}
 	}
+	cout << "it fits" << endl;
 	return true;
 }
 
@@ -185,14 +187,17 @@ bool Board::isFull(int r, int c){
 		
 		return false;
 	}
+	else if (board[r][c].getId() == id) {
+		return false;
+	}
 	else{
 		return true;
 	}
-	/*		
-	if (board[r][c].getId() == id) {
-		return false;
-	}
-	*/
+		
+
+
+
+
 
 }
 
@@ -268,6 +273,7 @@ void Board::droponBoard(){
 		down();
 		int r2 = current->getR();
 		if(r == r2 || r == 0){
+			cout << "r is: " << r<< " r2 is: " << r2 << endl;
 			break;
 		}
 	}
