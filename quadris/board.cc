@@ -135,7 +135,7 @@ int Board::checkRows(){
 void Board::clockwise(){
 	current->rotateClockwise();
 	if (checkFit()) {
-		putonBoard();
+		putonBoard(false, true);
 	}
 	else {
 		current->rotateCounterClockwise();
@@ -145,7 +145,7 @@ void Board::clockwise(){
 void Board::cclockwise(){
 	current->rotateCounterClockwise();
 	if (checkFit()) {
-		putonBoard();
+		putonBoard(false, true);
 	}
 	else {
 		current->rotateCounterClockwise();
@@ -158,7 +158,7 @@ void Board::changeNextBlk(char type){
 }
 
 void Board::random(bool random){
-	nb->rand(random);
+	nb->rando(random);
 }
 
 bool Board::checkFit(){
@@ -175,6 +175,7 @@ bool Board::checkFit(){
 			} 
 		}
 	}
+	cout << "it fits" << endl;
 	return true;
 }
 
@@ -214,7 +215,7 @@ void Board::leveldown(){
 }
 
 
-void Board::putonBoard(bool flag){
+void Board::putonBoard(bool flag, bool flag2){
 	int dim = current->getDim();
 	int r = current->getR();
 	int c = current->getC();
@@ -222,9 +223,18 @@ void Board::putonBoard(bool flag){
 	for (int i = 0; i < dim; ++i) {
 		for (int j = 0; j < dim; ++j) {
 			char chr = current->getChar(i,j);
-			if(!((r+i)>17 || (c+j) >10 || (r+i) < 0 || (c+j) < 0)) {			
-				if(flag && chr != ' '){
-					board[r+i][c+j].setcell(true);
+			if(!((r+i)>17 || (c+j) >10 || (r+i) < 0 || (c+j) < 0)) {
+				if(!flag2){
+					if(chr != ' '){
+						board[r+i][c+j].setType(chr);
+						if(flag){
+							board[r+i][c+j].setcell(true);
+						}
+					}
+				}
+				else{
+					board[r+i][c+j].setType(chr);
+
 				}
 				board[r+i][c+j].setId(id);
 			
@@ -261,10 +271,11 @@ void Board::droponBoard(){
 		down();
 		int r2 = current->getR();
 		if(r == r2 || r == 0){
+			cout << "r is: " << r<< " r2 is: " << r2 << endl;
 			break;
 		}
 	}
-	putonBoard(true); //place on board concretely
+	putonBoard(true,false); //place on board concretely
 
 }
 
