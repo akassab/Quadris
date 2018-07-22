@@ -88,7 +88,11 @@ void Board::down(){
 bool Board::drop(){
 	droponBoard();//set the current Block on the board
 	int rows = checkRows();//check for completed rows
-	//increase score here	
+	s->genScoreRows(rows);
+	score = s->getScore();	
+	if(rows!=0){
+		notifyObservers();
+	}
 	delete current;
 	current = Block::Create(newBlk); //create the new current block
 	if(!checkFit()){
@@ -151,10 +155,6 @@ void Board::cclockwise(){
 	}
 }
 
-void Board::changeNextBlk(char type){
-	nb->replace(type);
-	notifyObservers();
-}
 
 void Board::random(bool random){
 	nb->rando(random);
@@ -168,7 +168,6 @@ bool Board::checkFit(){
 	for(int i =0; i< dim; ++i){
 		for(int j = 0; j<dim; ++j){
 			if(isFull(i+r, j+c) && current->getChar(i,j) != ' '){
-				cout << "I return false" << endl;
 				return false;
 	
 			} 
@@ -200,12 +199,17 @@ bool Board::isFull(int r, int c){
 
 void Board::levelup(){
 	level ++;
-	
+	s->setLvl(level);
+	nb->setLvl(level);
+	notifyObservers();	
 
 }
 
 void Board::leveldown(){
 	level --;
+	s->setLvl(level);
+	nb->setLvl(level);
+	notifyObservers();
 
 }
 
@@ -280,4 +284,7 @@ int Board::getScore(){
 	return s->getScore();
 }
 
-	
+void Board::replace(char c){
+	newBlk = c;
+	notifyObservers();
+}	

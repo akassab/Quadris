@@ -46,6 +46,9 @@ ostream &operator<<(ostream &out, const TextDisplay &td){
 }
 
 TextDisplay::TextDisplay(){
+	level = 0;
+	score = 0;
+	hiscore = 0;
 	for(int i =0; i< 18; ++i){
 		vector<char> row; //Create empty row
 		for(int j =0 ; j< 11; ++j){

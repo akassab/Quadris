@@ -6,17 +6,15 @@ int Score::getScore(){
 }
 
 void Score::genScoreBlock(int lvl){
-	int hi;
-	hi = lvl;	
+	lvl = 0;
 }
 
 void Score::setLvl(int lvl){
 	level = lvl;
 }
 
-void genScoreRows(int rows){
-	int hi;
-	hi = rows;
+void Score::genScoreRows(int rows){
+	score = score + (level + rows) * (level + rows);
 
 }
 
