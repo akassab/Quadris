@@ -48,9 +48,9 @@ void Board::right(){
 	current->right();
 	int r = current->getR();
 	int c = current->getC();
-	if(checkFit()){
-		removeBlock(r,c-1);
-		putonBoard();
+	if(checkFit()){ //checks if movement fits on board
+		removeBlock(r,c-1);//removes previous block
+		putonBoard();//place on board
 	}
 	else{
 		current->left();
@@ -88,12 +88,12 @@ void Board::down(){
 bool Board::drop(){
 	droponBoard();//set the current Block on the board
 	int rows = checkRows();//check for completed rows
-	s->genScoreRows(rows);
+	s->genScoreRows(rows);//increase score based on number of rows cleared
 	score = s->getScore();	
 	if(rows!=0){
-		notifyObservers();
+		notifyObservers(); //only notify display observers if score changes
 	}
-	delete current;
+	delete current; //get rid of current block
 	current = Block::Create(newBlk); //create the new current block
 	if(!checkFit()){
 		return false; //the game is over!
@@ -178,15 +178,14 @@ bool Board::checkFit(){
 
 bool Board::isFull(int r, int c){
 	//cout << "r is: " << r << "c is: " << c << endl;
-	if(r>17 || r<0 || c>10 || c<0){
+	if(r>17 || r<0 || c>10 || c<0){ //if it is outside boundaries return true
 		return true;
 	}
-	if(!(board[r][c].getSet())){
+	if(!(board[r][c].getSet())){ //if it is not set on board, return false
 		
 		return false;
 	}
 	else{
-		cout << "i fuckedu " << endl;
 		return true;
 	}
 	/*		
@@ -199,8 +198,8 @@ bool Board::isFull(int r, int c){
 
 void Board::levelup(){
 	level ++;
-	s->setLvl(level);
-	nb->setLvl(level);
+	s->setLvl(level);//notify score object
+	nb->setLvl(level);//notify newblock object
 	notifyObservers();	
 
 }
@@ -223,8 +222,8 @@ void Board::putonBoard(bool flag, bool flag2){
 		for (int j = 0; j < dim; ++j) {
 			char chr = current->getChar(i,j);
 			if(!((r+i)>17 || (c+j) >10 || (r+i) < 0 || (c+j) < 0)) {
-				if(!flag2){
-					if(chr != ' '){
+				if(!flag2){ 
+					if(chr != ' '){ //check to only update cells on board that aren't empty in block
 						board[r+i][c+j].setType(chr);
 						if(flag){
 							board[r+i][c+j].setcell(true);
@@ -232,7 +231,7 @@ void Board::putonBoard(bool flag, bool flag2){
 					}
 				}
 				else{
-					board[r+i][c+j].setType(chr);
+					board[r+i][c+j].setType(chr); //update cells on board even if they are empty in block(useful for rotate)
 				}
 				board[r+i][c+j].setId(id);
 			
