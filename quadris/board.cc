@@ -94,6 +94,7 @@ bool Board::drop(){
 	if(!checkFit()){
 		return false; //the game is over!
 	}
+	checkRows();
 	newBlk = nb->generatenew(); //generate new newblock
 	putonBoard(); //place new current on top left of board
 	return true;
@@ -186,15 +187,18 @@ bool Board::isFull(int r, int c){
 		
 		return false;
 	}
+	else if (board[r][c].getId() == id) {
+		return false;
+	}
 	else{
 		cout << "i fuckedu " << endl;
 		return true;
 	}
-	/*		
-	if (board[r][c].getId() == id) {
-		return false;
-	}
-	*/
+		
+
+
+
+
 
 }
 
@@ -218,8 +222,7 @@ void Board::putonBoard(bool flag){
 	for (int i = 0; i < dim; ++i) {
 		for (int j = 0; j < dim; ++j) {
 			char chr = current->getChar(i,j);
-			if(!((r+i)>17 || (c+j) >10 || (r+i) < 0 || (c+j) < 0)) {
-				board[r+i][c+j].setType(chr);
+			if(!((r+i)>17 || (c+j) >10 || (r+i) < 0 || (c+j) < 0)) {			
 				if(flag && chr != ' '){
 					board[r+i][c+j].setcell(true);
 				}
