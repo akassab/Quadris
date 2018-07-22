@@ -36,7 +36,7 @@ class Board: public Subject {
 	void cclockwise();
 	//
 	void removeBlock(int r, int c); //removes previous position of current block from board
-	void putonBoard(bool flag= false); //places current piece on board for display
+	void putonBoard(bool flag= false, bool flag2 = false); //places current piece on board for display
 
 	//User interactions
 	void changeNextBlk(char type);
