@@ -11,7 +11,7 @@ class Cell : public Subject {
 	explicit Cell(int r, int c);
 
 	~Cell();
-	bool getSet();
+	bool getSet(); 
 	explicit Cell(char t);
 	char getType();
 	void setType(char type);
@@ -20,7 +20,7 @@ class Cell : public Subject {
 	int getR();
 	int getC();
 	int getId();
-	void setcell(bool flag);
+	void setcell(bool flag);//set cell solidly on board (called in drop)
 	void setId(int i);	
 };
 #endif
