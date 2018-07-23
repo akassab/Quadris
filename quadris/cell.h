@@ -4,6 +4,7 @@
 
 class Cell : public Subject {
 	int id;
+	int level;
 	int r,c;
 	char type;//the type of the cell, ' ' for empty, or a letter e.g. 'I'
 	bool set; //if the piece is dropped on board yet or still being controlled by user
@@ -17,9 +18,11 @@ class Cell : public Subject {
 	void setType(char type);
 	void setR(int r);
 	void setC(int c);
+	void setLevel(int l);
+	int getId();
 	int getR();
 	int getC();
-	int getId();
+	int getLevel();
 	void setcell(bool flag);//set cell solidly on board (called in drop)
 	void setId(int i);	
 };

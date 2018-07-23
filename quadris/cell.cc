@@ -22,6 +22,9 @@ void Cell::setC(int y){
 	c = y;
 }
 
+void Cell::setLevel(int l) {
+	level = l;
+}
 void Cell::setcell(bool flag){
 	cout << "row: " << r << "col: " << c << endl;
 	set = flag;
@@ -39,6 +42,9 @@ int Cell::getC(){
 	return c;
 }
 
+int Cell::getLevel() {
+	return level;
+}
 void Cell::setType(char type){
 	this->type = type;
 	notifyObservers();
