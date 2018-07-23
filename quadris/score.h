@@ -11,6 +11,7 @@ public:
 	void genScoreBlock(int lvl);
 	void setLvl(int lvl);
 	void genScoreRows(int rows);
+	Score();
 };
 
 #endif
