@@ -24,3 +24,6 @@ void Score::genScoreBlock(int lvl){
 	}
 }
 
+int Score::getHscore(){
+	return hscore;
+}

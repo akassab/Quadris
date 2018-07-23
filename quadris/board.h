@@ -44,6 +44,7 @@ class Board: public Subject {
 	
 
 	//Observer accessor functions
+	int getHscore();
 	int getScore();
 	bool getLost();
 	Block getNewBlock();

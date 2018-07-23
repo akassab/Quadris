@@ -8,6 +8,7 @@ using namespace std;
 void TextDisplay::notify(Board &whoNotified){
 	level = whoNotified.getLevel();
 	score = whoNotified.getScore();
+	hiscore = whoNotified.getHscore();
 }
 
 void TextDisplay::notify(Cell &whoNotified){

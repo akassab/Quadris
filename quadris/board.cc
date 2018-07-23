@@ -169,7 +169,6 @@ bool Board::checkFit(){
 	for(int i =0; i< dim; ++i){
 		for(int j = 0; j<dim; ++j){
 			if(isFull(i+r, j+c) && current->getChar(i,j) != ' '){
-				cout<<"it doesn't" << endl;
 				return false;
 	
 			} 
@@ -266,7 +265,6 @@ void Board::droponBoard(){
 		down();
 		int r2 = current->getR();
 		if(r == r2 || r == 0){
-			cout << "r is: " << r<< " r2 is: " << r2 << endl;
 			break;
 		}
 	}
@@ -285,4 +283,8 @@ int Board::getScore(){
 void Board::replace(char c){
 	newBlk = c;
 	notifyObservers();
+}
+
+int Board::getHscore(){
+	return s->getHscore();
 }	
