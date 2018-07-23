@@ -5,7 +5,8 @@
 
 class Score {
 	int level;
-	int score;
+	int cscore;
+	int hscore;
 public:
 	int getScore();
 	void genScoreBlock(int lvl);

@@ -1,9 +1,9 @@
 #include "score.h"
 
-Score::Score(): level{0}, score{0} {}
+Score::Score(): level{0}, cscore{0}, hscore{0} {}
 
 int Score::getScore(){
-	return score;
+	return cscore;
 }
 
 void Score::setLvl(int lvl){
@@ -11,10 +11,16 @@ void Score::setLvl(int lvl){
 }
 
 void Score::genScoreRows(int rows){
-	score += ((level + rows)*(level + rows));
+	cscore += ((level + rows)*(level + rows));
+	if(cscore > hscore){
+		hscore = cscore;
+	}
 }
 
 void Score::genScoreBlock(int lvl){
-	score += ((lvl+1) * (lvl+1));
+	cscore += ((lvl+1) * (lvl+1));
+	if(cscore > hscore){
+		hscore = cscore;
+	}
 }
 
