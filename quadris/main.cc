@@ -54,7 +54,7 @@ int main() {
 			b->leveldown();
 		}
 		else if (val == "restart"){
-			b->init();
+			b->restart();
 		}
 		else if (val == "I"){
 			b->replace('I');
@@ -77,6 +77,7 @@ int main() {
 		else if (val == "T"){
 			b->replace('T');
 		}
+		
 		}		
 		if(game){
 			b->print();

@@ -27,6 +27,7 @@ class Board: public Subject {
 	int checkRows();
 	public:
 	void init();//initialized board
+	void restart(); //restart board
 	bool checkFit();//checks if piece fits in board
 	//User current block transformations/moves
 	void right();

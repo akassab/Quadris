@@ -42,6 +42,13 @@ void Board::init(){
 	notifyObservers(); //so that textdisplay knows new block
 }
 
+void Board::restart(){
+	delete td;
+        (*this).detach(td);
+        td = new TextDisplay();
+        (*this).attach(td);
+		
+}
 void Board::print(){
 	cout << (*td);
 }
