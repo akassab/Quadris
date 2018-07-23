@@ -119,3 +119,17 @@ std::vector<std::vector<char>> Block::getCurrent() {
 	*/
 }
 
+int Block::getHeight(){
+	int retval = 0;
+	for(int i = 0; i<dim; ++i){
+		for(int j = 0; j<dim; ++j){
+			if(current[i][j] != ' '){
+				return retval;
+			}
+		}
+		retval ++;
+	}
+	return retval;
+}
+
+		

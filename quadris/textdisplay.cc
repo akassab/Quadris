@@ -9,6 +9,18 @@ void TextDisplay::notify(Board &whoNotified){
 	level = whoNotified.getLevel();
 	score = whoNotified.getScore();
 	hiscore = whoNotified.getHscore();
+	newblockheight = whoNotified.getnewBlockHeight();
+	newblockdim = whoNotified.getnewBlockDim();
+	for(int i =0; i< 4; ++i){
+		for(int j = 0; j<4; ++j){
+			if(i>= newblockdim || j>=newblockdim){
+				nbDisplay[i][j] = ' ';
+			}
+			else{
+				nbDisplay[i][j] = whoNotified.getnewBlock(i,j);
+			} 
+		}
+	}
 }
 
 void TextDisplay::notify(Cell &whoNotified){
@@ -41,6 +53,14 @@ ostream &operator<<(ostream &out, const TextDisplay &td){
 		out << endl;
 	}	
 	out << "-----------" << endl;
+	out << "Next:" << endl;
+	
+	for(int c = 0; c+td.newblockheight< 4; ++c){ //printing out the new block
+		for(int d = 0; d<4 ; ++d){
+			out << td.nbDisplay[c+td.newblockheight][d];
+		}
+		out << endl;
+	}
 	
 	return out;
 
@@ -57,4 +77,12 @@ TextDisplay::TextDisplay(){
 		}
 		theDisplay.push_back(row); //add row to theDisplay
 	}
+	for(int c = 0; c< 4; ++c){ //initializing the newblock 
+		vector<char> row;
+		for(int d = 0; d< 4; ++d){
+			row.push_back(' ');
+		}
+		nbDisplay.push_back(row);
+	}
+	
 }

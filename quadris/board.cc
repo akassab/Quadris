@@ -15,14 +15,14 @@ void Board::init(){
 	level = 0;
 	delete td;
 	(*this).detach(td);
-	td = new TextDisplay(); 
+	td = new TextDisplay();
 	(*this).attach(td);
 	delete s;
 	s = new Score();
 	delete nb;
 	nb = new newBlock();
 	newBlk = nb->generatenew();
-	current = Block::Create(newBlk);
+	current = Block::Create(newBlk);	
 	for(unsigned int i =0; i<18; ++i){ //create new board
 		vector<Cell> row;
 		for(unsigned int j = 0; j<11; ++j){
@@ -38,6 +38,8 @@ void Board::init(){
 	}
 	putonBoard();
 	newBlk = nb->generatenew();
+	newblock = Block::Create(newBlk);
+	notifyObservers(); //so that textdisplay knows new block
 }
 
 void Board::print(){
@@ -94,13 +96,15 @@ bool Board::drop(){
 		notifyObservers(); //only notify display observers if score changes
 	}
 	delete current; //get rid of current block
-	current = Block::Create(newBlk); //create the new current block
+	current = newblock; //create the new current block
 	if(!checkFit()){
 		return false; //the game is over!
 	}
 	checkRows();
 	newBlk = nb->generatenew(); //generate new newblock
+	newblock = Block::Create(newBlk);
 	putonBoard(); //place new current on top left of board
+	this->notifyObservers();
 	return true;
 }
 
@@ -282,9 +286,23 @@ int Board::getScore(){
 
 void Board::replace(char c){
 	newBlk = c;
+	delete newblock;
+	newblock = Block::Create(newBlk);
 	notifyObservers();
 }
 
 int Board::getHscore(){
 	return s->getHscore();
+}
+
+char Board::getnewBlock(int r, int c){
+	return newblock->getChar(r , c);
+}
+
+int Board::getnewBlockHeight(){
+	return newblock->getHeight();
+}
+
+int Board::getnewBlockDim(){
+	return newblock->getDim();
 }	

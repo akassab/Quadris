@@ -16,6 +16,7 @@ class Board: public Subject {
 	TextDisplay *td = nullptr; //the textdisplay!
 	std::vector<std::vector<Cell>> board; //vector cells representing the quadris board
 	Block *current = nullptr; //the current block being moved
+	Block *newblock = nullptr;
 	newBlock *nb = nullptr; //the next block to be displayed
 	char newBlk; //the char of the next block to be displayed
 	int score; //the score
@@ -47,7 +48,9 @@ class Board: public Subject {
 	int getHscore();
 	int getScore();
 	bool getLost();
-	Block getNewBlock();
+	int getnewBlockHeight();
+	int getnewBlockDim();
+	char getnewBlock(int r, int c);
 	Block getCurrent();
 	void levelup();
 	void leveldown();

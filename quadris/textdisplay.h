@@ -8,10 +8,13 @@ class Cell;
 
 class TextDisplay: public Observer{
 	std::vector<std::vector<char>> theDisplay;
+	std::vector<std::vector<char>> nbDisplay;
 	int level;
 	int score;
 	int hiscore;
-	char nextblock;
+	int newblockheight; //height of the newblock
+	int newblockdim; //dimensions of the newblock
+	char nextblock;//char of the nextblock
 	public:
 	TextDisplay();
 	void notify(Subject &whoFrom);
