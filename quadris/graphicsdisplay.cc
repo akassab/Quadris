@@ -4,10 +4,12 @@
 using namespace std;
 
 GraphicsDisplay::GraphicsDisplay(){
-	xw.fillRectangle(0,0,330,900,0);
+	xw.fillRectangle(0,0,330,900,1);
 }
 
-
+void GraphicsDisplay::restart(){
+	xw.fillRectangle(0,0,330,900,1);
+}
 void GraphicsDisplay::notify(Cell &whoNotified){
         int r = whoNotified.getR();
         int c = whoNotified.getC();
@@ -39,7 +41,7 @@ void GraphicsDisplay::notify(Cell &whoNotified){
 		xw.fillRectangle(c*(cSize), r*(cSize)+100, cSize, cSize,9);
 	}
 	else{
-		xw.fillRectangle(c*(cSize), r*(cSize)+100, cSize, cSize,0);
+		xw.fillRectangle(c*(cSize), r*(cSize)+100, cSize, cSize,1);
 	}
 }
 
@@ -55,7 +57,8 @@ void GraphicsDisplay::notify(Subject &whoNotified){
 void GraphicsDisplay::notify(Board &whoNotified){
 	xw.fillRectangle(0,0,330,100,1);
 	//cout<< "HI1" << endl;
-	xw.drawString(0,0,"Score: ",2);
+	string s = "score: "; 
+	xw.drawBigString(0,0,s);
         //cout << "HI2" << endl;
 	level = whoNotified.getLevel();
         score = whoNotified.getScore();

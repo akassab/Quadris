@@ -18,6 +18,7 @@ class GraphicsDisplay: public Observer{
 	int newblockdim; //dimensions of the newblock
 	char nextblock;//char of the nextblock
 	public:
+	void restart();
 	GraphicsDisplay();
 	void notify(Subject &whoFrom);
 	void notify(Board &whoFrom);

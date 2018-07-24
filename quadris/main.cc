@@ -22,7 +22,7 @@ int main() {
 	b->init();
 	string cmd;
 	b->print();
-	bool game = true; //if game is not over
+//	bool game = true; //if game is not over
 	while(true){
 		int mult;
 		if(!(cin>>mult)){
@@ -31,34 +31,33 @@ int main() {
 		}
 		cin>>cmd;
 		string val = i->interpret(cmd);
-		//for(int c = mult; c>0; --c){
-		int c = 1;		
-		if(val == "left" && game){
+		if(val == "left"){
 			b->left(mult);
 		}
-		else if (val == "right"&& game){
+		else if (val == "right"){
 			b->right(mult);
 		}
-		else if (val == "down" && game){
+		else if (val == "down"){
 			b->down(mult);
 		}
-		else if (val == "clockwise" && game){
+		else if (val == "clockwise"){
 			b->clockwise(mult);
 		}
-		else if (val == "counterclockwise" && game){
+		else if (val == "counterclockwise"){
 			b->cclockwise(mult);
 		}
-		else if (val == "drop" && game){
-			game = b->drop();
+		else if (val == "drop"){
+			b->drop();
 		}
-		else if (val == "levelup" && game){
+		else if (val == "levelup"){
 			b->levelup(mult);
 		}
-		else if (val == "leveldown" && game){
+		else if (val == "leveldown"){
 			b->leveldown(mult);
 		}
 		else if (val == "restart"){
 			b->init();
+			grd->restart();
 		}
 		else if (val == "I"){
 			b->replace('I');
@@ -82,9 +81,7 @@ int main() {
 			b->replace('T');
 		}
 		
-		//}		
-		if(game){
 			b->print();
-		}
+		
 	}
 }
