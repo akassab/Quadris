@@ -13,6 +13,7 @@ public:
 	void setLvl(int lvl);
 	void genScoreRows(int rows);
 	int getHscore();
+	void restart();
 	Score();
 };
 

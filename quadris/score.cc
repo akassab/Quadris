@@ -27,3 +27,7 @@ void Score::genScoreBlock(int lvl){
 int Score::getHscore(){
 	return hscore;
 }
+
+void Score::restart(){
+	cscore = 0;
+}

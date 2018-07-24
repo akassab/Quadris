@@ -54,7 +54,7 @@ int main() {
 			b->leveldown();
 		}
 		else if (val == "restart"){
-			b->restart();
+			b->init();
 		}
 		else if (val == "I"){
 			b->replace('I');

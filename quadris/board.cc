@@ -17,14 +17,19 @@ void Board::init(){
 	(*this).detach(td);
 	td = new TextDisplay();
 	(*this).attach(td);
-	delete s;
-	s = new Score();
+	if(s){
+		s->restart(); // 
+	}
+	else{
+		s = new Score();
+	}
 	delete nb;
 	nb = new newBlock();
 	nb->newseqn("sequence.txt");
 	newBlk = nb->generatenew();
 	current = Block::Create(newBlk);
-	current -> setLevel(level);	
+	current -> setLevel(level);
+	board.clear();	
 	for(unsigned int i =0; i<18; ++i){ //create new board
 		vector<Cell> row;
 		for(unsigned int j = 0; j<11; ++j){
@@ -44,16 +49,19 @@ void Board::init(){
 	newblock -> setLevel(level);
 	notifyObservers(); //so that textdisplay knows new block
 }
-
+/*
 void Board::restart(){
 	delete td;
         (*this).detach(td);
         td = new TextDisplay();
         (*this).attach(td);
-	//s->restart();
-	//nb->restart();
+	s->restart();
+	delete nb;
+	nb = new 
 		
 }
+*/
+
 void Board::print(){
 	cout << (*td);
 }
@@ -147,6 +155,7 @@ void Board::dropstar(){
 	for(int r = 3; r< 19; ++r){
 		if(isFull(r,5) == true){
 			board[r-1][5].setType('*');
+			break;
 		}
 	}
 	int rows = checkRows();//check for completed rows
