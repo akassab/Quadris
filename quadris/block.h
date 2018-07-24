@@ -8,7 +8,7 @@ class Block {
 
 
 
-
+	int level; //the block the level is generated
 	int r;//coordinates of lower left corner
 	int c;
 	// dimension of every orientation 
@@ -23,7 +23,8 @@ class Block {
 	std::vector<std::vector<std::vector<char>>> possibilities;
 	public: 
 		Block(int gridDim, int numPossibilities);
-
+		void setLevel(int level);
+		int getLevel();
 		char getChar(int r, int c);
 		static Block *Create(char type);
 		void rotateClockwise();
@@ -37,6 +38,7 @@ class Block {
 		int getR(); //return coordinates
 		int getC();
 		int getHeight();
+		bool isHeavy(); //return true if block generated on level 3
 		std::vector<std::vector<char>> getCurrent(); //returns vector of positions
 		// print the current orientation
 		//void printCurrent();

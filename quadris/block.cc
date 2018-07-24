@@ -28,8 +28,9 @@ Block::Block(int gridDim, int numPossibilities) {
 	}
 }
 
-
-
+void Block::setLevel(int levelgen){
+	level = levelgen;
+}
 
 
 
@@ -107,17 +108,6 @@ char Block::getChar(int r, int c){
 	return current[r][c];
 }
 
-std::vector<std::vector<char>> Block::getCurrent() {
-	return current;
-	/*
-	for (int r = 0; r < dim; ++r) {
-		for (int c = 0; c < dim; ++c) {
-			cout << current[r][c].getType();
-		}
-		cout << endl;
-	}
-	*/
-}
 
 int Block::getHeight(){
 	int retval = 0;
@@ -132,4 +122,15 @@ int Block::getHeight(){
 	return retval;
 }
 
-		
+int Block::getLevel(){
+	return level;
+}
+
+bool Block::isHeavy(){
+	if(level == 3 || level == 4){
+		return true;
+	}
+	else{
+		return false;
+	}
+}		

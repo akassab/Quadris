@@ -30,12 +30,12 @@ class Board: public Subject {
 	void restart(); //restart board
 	bool checkFit();//checks if piece fits in board
 	//User current block transformations/moves
-	void right();
-	void left();
+	void right(int mult = 1);
+	void left(int mult = 1);
 	bool drop();
-	void down();
-	void clockwise();
-	void cclockwise();
+	void down(bool flag = true,int mult = 1); //if flag is true then should still check for isHeavy
+	void clockwise(int mult = 1);
+	void cclockwise(int mult = 1);
 	//
 	void removeBlock(int r, int c); //removes previous position of current block from board
 	void putonBoard(bool flag= false, bool flag2 = false); //places current piece on board for display

@@ -27,22 +27,22 @@ int main() {
 		}
 		cin>>cmd;
 		string val = i->interpret(cmd);
-		for(int c = 0; c<mult; ++c){
+		for(int c = mult; c>0; --c){
 		
 		if(val == "left" && game){
-			b->left();
+			b->left(c);
 		}
 		else if (val == "right"&& game){
-			b->right();
+			b->right(c);
 		}
 		else if (val == "down" && game){
-			b->down();
+			b->down(c);
 		}
 		else if (val == "clockwise" && game){
-			b->clockwise();
+			b->clockwise(c);
 		}
 		else if (val == "counterclockwise" && game){
-			b->cclockwise();
+			b->cclockwise(c);
 		}
 		else if (val == "drop" && game){
 			game = b->drop();

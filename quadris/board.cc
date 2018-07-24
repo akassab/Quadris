@@ -53,7 +53,7 @@ void Board::print(){
 	cout << (*td);
 }
 
-void Board::right(){
+void Board::right(int mult){
 	current->right();
 	int r = current->getR();
 	int c = current->getC();
@@ -64,12 +64,17 @@ void Board::right(){
 	else{
 		current->left();
 	}
+	cout << "Checkone" << endl;
+	if(current->isHeavy() && mult == 1){
+		cout << "Checktwo" << endl;
+		down(false);
+	}
 }
 
 
 
 
-void Board::left(){
+void Board::left(int mult){
 	current->left();
 	int r = current->getR();
 	int c = current->getC();
@@ -80,8 +85,11 @@ void Board::left(){
 	else{
 		current->right();
 	}
+	if(current->isHeavy() && mult == 1){
+		down(false);
+	}
 }
-void Board::down(){
+void Board::down(bool flag, int mult){
 	current->down();
 	int r = current->getR();
 	int c = current->getC();
@@ -92,26 +100,32 @@ void Board::down(){
 	else{
 		current->up();
 	}
+	if(current->isHeavy() && flag && mult == 1){
+		down(false);
+	}
 }
 
 bool Board::drop(){
 	droponBoard();//set the current Block on the board
 	int rows = checkRows();//check for completed rows
-	s->genScoreRows(rows);//increase score based on number of rows cleared
-	score = s->getScore();	
 	if(rows!=0){
+		s->genScoreRows(rows);
+		score = s->getScore();
 		notifyObservers(); //only notify display observers if score changes
 	}
 	delete current; //get rid of current block
 	current = newblock; //create the new current block
+	current->setLevel(level); //set the level of the current block
+	cout << "Check1" << endl;
 	if(!checkFit()){
 		return false; //the game is over!
 	}
+	cout << "Check2" << endl;
 	checkRows();
 	newBlk = nb->generatenew(); //generate new newblock
 	newblock = Block::Create(newBlk);
 	putonBoard(); //place new current on top left of board
-	this->notifyObservers();
+	notifyObservers();
 	return true;
 }
 
@@ -147,7 +161,7 @@ int Board::checkRows(){
 }
 				
 
-void Board::clockwise(){
+void Board::clockwise(int mult){
 	current->rotateClockwise();
 	if (checkFit()) {
 		putonBoard(false, true);
@@ -155,15 +169,21 @@ void Board::clockwise(){
 	else {
 		current->rotateCounterClockwise();
 	}
+	if(current->isHeavy() && mult == 1){
+		down(false);
+	}
 }
 
-void Board::cclockwise(){
+void Board::cclockwise(int mult){
 	current->rotateCounterClockwise();
 	if (checkFit()) {
 		putonBoard(false, true);
 	}
 	else {
 		current->rotateCounterClockwise();
+	}
+	if(current->isHeavy() && mult == 1){
+		down(false);
 	}
 }
 
@@ -234,14 +254,15 @@ void Board::putonBoard(bool flag, bool flag2){
 					if(chr != ' '){ //check to only update cells on board that aren't empty in block
 						board[r+i][c+j].setType(chr);
 						if(flag){
-							board[r+i][c+j].setcell(true);
+							board[r+i][c+j].setcell(true); //actually place cells onto board
+							board[r+i][c+j].setLevel(current->getLevel());
+							board[r+i][c+j].setId(id);
 						}
 					}
 				}
 				else{
 					board[r+i][c+j].setType(chr); //update cells on board even if they are empty in block(useful for rotate)
 				}
-				board[r+i][c+j].setId(id);
 			
 			}
 		}
