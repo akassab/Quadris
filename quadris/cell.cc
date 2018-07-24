@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace std;
 
-Cell::Cell(int r, int c):  r{r}, c{c}, type{' '}, set{false}, id{-1} {}
+Cell::Cell(int r, int c): id{-1}, r{r}, c{c}, type{' '}, set{false}{}
 
 
 Cell::~Cell() {
@@ -45,9 +45,11 @@ int Cell::getC(){
 int Cell::getLevel() {
 	return level;
 }
-void Cell::setType(char type){
+void Cell::setType(char type,bool flag){
 	this->type = type;
-	notifyObservers();
+	if(flag){
+		notifyObservers();
+	}
 }
 
 void Cell::setId(int i) {

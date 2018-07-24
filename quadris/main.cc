@@ -7,12 +7,16 @@
 #include "oblock.h"
 #include "sblock.h"
 #include "interp.h"
+#include "graphicsdisplay.h"
 #include <iostream>
 #include <string>
+
 
 using namespace std;
 int main() {
 	Board *b = new Board();	
+	GraphicsDisplay *grd = new GraphicsDisplay();
+	b->setObserver(grd);
 	Interp *i = new Interp();
 	i->init();
 	b->init();
@@ -27,31 +31,31 @@ int main() {
 		}
 		cin>>cmd;
 		string val = i->interpret(cmd);
-		for(int c = mult; c>0; --c){
-		
+		//for(int c = mult; c>0; --c){
+		int c = 1;		
 		if(val == "left" && game){
-			b->left(c);
+			b->left(mult);
 		}
 		else if (val == "right"&& game){
-			b->right(c);
+			b->right(mult);
 		}
 		else if (val == "down" && game){
-			b->down(c);
+			b->down(mult);
 		}
 		else if (val == "clockwise" && game){
-			b->clockwise(c);
+			b->clockwise(mult);
 		}
 		else if (val == "counterclockwise" && game){
-			b->cclockwise(c);
+			b->cclockwise(mult);
 		}
 		else if (val == "drop" && game){
 			game = b->drop();
 		}
 		else if (val == "levelup" && game){
-			b->levelup();
+			b->levelup(mult);
 		}
 		else if (val == "leveldown" && game){
-			b->leveldown();
+			b->leveldown(mult);
 		}
 		else if (val == "restart"){
 			b->init();
@@ -78,7 +82,7 @@ int main() {
 			b->replace('T');
 		}
 		
-		}		
+		//}		
 		if(game){
 			b->print();
 		}

@@ -27,6 +27,8 @@ class Board: public Subject {
 	void droponBoard(); //sets current onto the board (drop)
 	int checkRows();
 	int starcounter;
+	Observer *ob = nullptr;
+	
 	public:
 	void init();//initialized board
 	void restart(); //restart board
@@ -47,7 +49,7 @@ class Board: public Subject {
 	void replace(char type);
 	void random(bool random);
 	
-
+	void setObserver(Observer *ob);
 	//Observer accessor functions
 	int getHscore();
 	int getScore();
@@ -56,8 +58,8 @@ class Board: public Subject {
 	int getnewBlockDim();
 	char getnewBlock(int r, int c);
 	Block getCurrent();
-	void levelup();
-	void leveldown();
+	void levelup(int mult = 1);
+	void leveldown(int mult = 1);
 	int getLevel();
 	char getType(int x, int y);
 	//

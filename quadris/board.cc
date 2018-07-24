@@ -18,8 +18,11 @@ void Board::init(){
 	(*this).detach(td);
 	td = new TextDisplay();
 	(*this).attach(td);
+	if(ob){
+		(*this).attach(ob);
+	}
 	if(s){
-		s->restart(); // 
+		s->restart(); //to preserve the high score functionality
 	}
 	else{
 		s = new Score();
@@ -42,6 +45,9 @@ void Board::init(){
 	for(unsigned int i = 0; i<18; ++i){
 		for(unsigned int j = 0; j<11; ++j){
 			board[i][j].attach(td);//attach textdisplay object for every cell on board
+			if(ob){
+				board[i][j].attach(ob);
+			}
 		}
 	}
 	putonBoard();
@@ -63,32 +69,73 @@ void Board::restart(){
 }
 */
 
+void Board::setObserver(Observer *ob){
+	this->ob = ob;
+}
+
 void Board::print(){
 	cout << (*td);
 }
 
 void Board::right(int mult){
-	current->right();
 	int r = current->getR();
 	int c = current->getC();
-	if(checkFit()){ //checks if movement fits on board
-		removeBlock(r,c-1);//removes previous block
-		putonBoard();//place on board
+	int counter = 0;
+	for(int i = 0; i< mult ;++i){
+		current->right();
+		c = current->getC();
+		if(checkFit()){
+			if(i == 0){
+				removeBlock(r,c-1);
+			}
+			counter ++;
+		}
+		else{
+			//cout << "left" << endl;
+			current->left();
+		}
+		if(i == mult-1 && current->isHeavy() && (counter>0)){
+			//cout << "heavy" << endl;
+			down(false);
+		}
+		else if (i==mult-1 && (counter>0)){
+			//cout << "place on board" << endl;
+			putonBoard();
+		}
 	}
-	else{
-		current->left();
-	}
-	cout << "Checkone" << endl;
-	if(current->isHeavy() && mult == 1){
-		cout << "Checktwo" << endl;
-		down(false);
-	}
+		
 }
 
 
 
 
 void Board::left(int mult){
+	int r = current->getR();
+        int c = current->getC();
+        int counter = 0;
+        for(int i = 0; i< mult ;++i){
+                current->left();
+                c = current->getC();
+                if(checkFit()){
+                        if(i == 0){
+                                removeBlock(r,c+1);
+                        }
+                        counter ++;
+                }
+                else{
+                        //cout << "left" << endl;
+                        current->right();
+                }
+                if(i == mult-1 && current->isHeavy() && (counter>0)){
+                        //cout << "heavy" << endl;
+                        down(false);
+                }
+                else if (i==mult-1 && (counter>0)){
+                        //cout << "place on board" << endl;
+                        putonBoard();
+                }
+        }
+	/*
 	current->left();
 	int r = current->getR();
 	int c = current->getC();
@@ -102,8 +149,34 @@ void Board::left(int mult){
 	if(current->isHeavy() && mult == 1){
 		down(false);
 	}
+	*/
 }
 void Board::down(bool flag, int mult){
+	int r = current->getR();
+        int c = current->getC();
+        int counter = 0;
+        for(int i = 0; i< mult ;++i){
+                current->down();
+                r = current->getR();
+                if(checkFit()){
+                        if(i == 0){
+                                removeBlock(r-1,c);
+                        }
+                        counter ++;
+                }
+                else{
+                        //cout << "left" << endl;
+                        current->up();
+                }
+                if(i == mult-1 && current->isHeavy() && (counter>0) && flag){
+                        down(false);
+                }
+                else if (i==mult-1 && (counter>0)){
+                        //cout << "place on board" << endl;
+                        putonBoard();
+                }
+        }
+	/*
 	current->down();
 	int r = current->getR();
 	int c = current->getC();
@@ -117,6 +190,7 @@ void Board::down(bool flag, int mult){
 	if(current->isHeavy() && flag && mult == 1){
 		down(false);
 	}
+	*/
 }
 
 bool Board::drop(){
@@ -157,6 +231,9 @@ void Board::dropstar(){
 	for(int r = 3; r< 19; ++r){
 		if(isFull(r,5) == true){
 			board[r-1][5].setType('*');
+			board[r-1][5].setcell(true);
+			board[r-1][5].setLevel(-1);
+			board[r-1][5].setId(-1);
 			break;
 		}
 	}
@@ -169,6 +246,8 @@ void Board::dropstar(){
 }
 int Board::checkRows(){
 	int counter = 0; //how many full rows there are
+	int lastemptyrow = 0;
+	bool flag = false;
 	for(int i = 0; i< 18; i++){
 		int counter2 = 0; //how many items in row are full
 		for(int j = 0; j<11; j++){
@@ -176,14 +255,18 @@ int Board::checkRows(){
 				counter2 ++;
 			}
 		}
+		if(counter2==0 && flag == false){lastemptyrow = i;}
+		else{
+			flag = true;
+		}
 		if(counter2 == 11){ //if all cells in row are full
 			for(int c = 0; c<11; ++c){ //delete the row from board
-				board[i][c].setType(' ');
-				if(board[i][c].getSet()){		//only for ones set concretely on board
+				board[i][c].setType(' ',false);
+				if(board[i][c].getSet() && board[i][c].getType() != '*'){		//only for ones set concretely on board
 					blockids.at(board[i][c].getId()) --;
 					if(blockids.at(board[i][c].getId()) == 0){
 						s->genScoreBlock(board[i][c].getLevel());
-						cout << "CALLED" << endl;
+						cout << "hello" << endl;
 					}
 				}
 				board[i][c].setcell(false);
@@ -191,12 +274,12 @@ int Board::checkRows(){
 			for(int k = i-1; k>=0; k--){ 				//push everything down one
 				for(int c = 0; c<11; ++c){
 					if(board[k][c].getSet()){
-						board[k+1][c].setType(board[k][c].getType());//copy row down one
+						board[k+1][c].setType(board[k][c].getType(),false);//copy row down one
 						board[k+1][c].setcell(true);
 						board[k+1][c].setLevel(board[k][c].getLevel());
 						board[k+1][c].setId(board[k][c].getId());
 					}
-					board[k][c].setType(' ');//delete from original position
+					board[k][c].setType(' ',false);//delete from original position
 					board[k][c].setcell(false);
 					board[k][c].setId(-1);
 					board[k][c].setLevel(-1);
@@ -206,24 +289,90 @@ int Board::checkRows(){
 			counter ++;	
 		}
 	}
+	cout << "lastemptyrow" << lastemptyrow << endl;
+	if(counter>0){
+		for(int i = lastemptyrow+1; i<18; ++i){
+			for(int j = 0; j<11; ++j){
+				board[i][j].notifyObservers();
+			}
+
+		}
+	}
+		
 	return counter;
 }
 				
 
 void Board::clockwise(int mult){
-	current->rotateClockwise();
-	if (checkFit()) {
-		putonBoard(false, true);
-	}
-	else {
-		current->rotateCounterClockwise();
-	}
-	if(current->isHeavy() && mult == 1){
-		down(false);
+	int counter = 0;
+	for(int i = 0; i< mult; ++i){
+		current->rotateClockwise();
+		if (checkFit()) {
+			counter ++;
+		}
+		else {
+			current->rotateCounterClockwise();
+		}
+		if(current->isHeavy() && i == mult-1 && counter>0){
+			int r = current->getR();
+			int c = current->getC();
+			current->down();
+			if(checkFit()){
+				for(int i =0; i<counter; ++i){
+					current->rotateCounterClockwise();
+				}
+				removeBlock(r,c);
+				for(int i =0; i<counter; ++i){
+					current->rotateClockwise();
+				}
+				putonBoard();	
+			}
+			else{
+				current->up();
+				putonBoard(false,true);
+			}
+		}
+		else if (i == mult-1 && counter>0){
+			putonBoard(false,true);
+		}
 	}
 }
 
 void Board::cclockwise(int mult){
+	int counter = 0;
+        for(int i = 0; i< mult; ++i){
+                current->rotateCounterClockwise();
+                if (checkFit()) {
+                        counter ++;
+                }
+                else {
+                        current->rotateClockwise();
+                }
+                if(current->isHeavy() && i == mult-1 && counter>0){
+                        int r = current->getR();
+                        int c = current->getC();
+                        current->down();
+                        if(checkFit()){
+                                for(int i =0; i<counter; ++i){
+                                        current->rotateClockwise();
+                                }
+                                removeBlock(r,c);
+                                for(int i =0; i<counter; ++i){
+                                        current->rotateCounterClockwise();
+                                }
+                                putonBoard();
+                        }
+                        else{
+                                current->up();
+                                putonBoard(false,true);
+                        }
+                }
+                else if (i == mult-1 && counter>0){
+                        putonBoard(false,true);
+                }
+        }
+
+	/*
 	current->rotateCounterClockwise();
 	if (checkFit()) {
 		putonBoard(false, true);
@@ -234,6 +383,7 @@ void Board::cclockwise(int mult){
 	if(current->isHeavy() && mult == 1){
 		down(false);
 	}
+	*/
 }
 
 
@@ -254,7 +404,6 @@ bool Board::checkFit(){
 			} 
 		}
 	}
-	cout << "it fits" << endl;
 	return true;
 }
 
@@ -273,16 +422,20 @@ bool Board::isFull(int r, int c){
 
 }
 
-void Board::levelup(){
-	level ++;
+void Board::levelup(int mult){
+	for(int i = 0; i < mult; ++i){
+		level ++;
+	}
 	s->setLvl(level);//notify score object
 	nb->setLvl(level);//notify newblock object
 	notifyObservers();	
 
 }
 
-void Board::leveldown(){
-	level --;
+void Board::leveldown(int mult){
+	for(int i =0; i<mult; ++i){
+		level --;
+	}
 	s->setLvl(level);
 	nb->setLvl(level);
 	notifyObservers();
@@ -319,13 +472,17 @@ void Board::putonBoard(bool flag, bool flag2){
 }
 
 void Board::removeBlock(int r, int c){
-        int dim = current->getDim();
+        cout << "col: " << c << endl;
+	int dim = current->getDim();
 	r = r - dim + 1;
         for (int i = 0; i < dim; ++i) {
                 for (int j = 0; j < dim; ++j) {
                         char chr = current->getChar(i,j);
                         if (chr != ' ') {
-                                board[r+i][c+j].setType(' ');
+				//cout << "char" << chr << endl;
+                                //cout << "row: " << r+i << "col: " << c+j << endl;
+				board[r+i][c+j].setType(' ');
+				//cout << "char" << chr << endl;
                                 board[r+i][c+j].setId(id);
                         }
                 }
@@ -339,6 +496,24 @@ void Board::removeBlock(int r, int c){
 
 
 void Board::droponBoard(){
+	int counter = 0;
+	while(true){
+		current->down();
+        	int r = current->getR();
+        	int c = current->getC();
+        	if(checkFit()){
+			if(counter == 0){
+                		removeBlock(r-1,c);
+        		}
+		}
+		else{
+			current->up();
+			break;
+		}
+		counter ++;
+	}
+	putonBoard(true,false);
+	/*
 	while(true){
 		int r = current->getR();
 		down();
@@ -348,7 +523,7 @@ void Board::droponBoard(){
 		}
 	}
 	putonBoard(true,false); //place on board concretely
-
+	*/
 }
 
 int Board::getLevel(){
