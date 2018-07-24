@@ -5,9 +5,6 @@
 #include "board.h"
 class Block {
 	protected:
-
-
-
 	int level; //the block the level is generated
 	int r;//coordinates of lower left corner
 	int c;

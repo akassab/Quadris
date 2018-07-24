@@ -15,6 +15,7 @@ class Board: public Subject {
 	int id; // id of current block
 	TextDisplay *td = nullptr; //the textdisplay!
 	std::vector<std::vector<Cell>> board; //vector cells representing the quadris board
+	std::vector<int> blockids;
 	Block *current = nullptr; //the current block being moved
 	Block *newblock = nullptr;
 	newBlock *nb = nullptr; //the next block to be displayed

@@ -11,6 +11,7 @@ using namespace std;
 
 void Board::init(){
 	id = 0;
+	blockids.clear();
 	score = 0;
 	level = 0;
 	delete td;
@@ -120,6 +121,8 @@ void Board::down(bool flag, int mult){
 
 bool Board::drop(){
 	droponBoard();//set the current Block on the board
+	blockids.push_back(4);
+	id++;
 	int rows = checkRows();//check for completed rows
 	if(rows!=0){
 		s->genScoreRows(rows);
@@ -127,7 +130,6 @@ bool Board::drop(){
 		notifyObservers(); //only notify display observers if score changes
 	}
 	if(rows == 0 && level == 4){
-		cout <<" STARCOUNTERINCREASE: " << starcounter << endl;
 		starcounter ++ ;
 	}
 	else{
@@ -142,7 +144,7 @@ bool Board::drop(){
 	if(!checkFit()){
 		return false; //the game is over!
 	}
-	checkRows();
+	//checkRows();
 	newBlk = nb->generatenew(); //generate new newblock
 	newblock = Block::Create(newBlk);
 	newblock -> setLevel(level);
@@ -177,16 +179,27 @@ int Board::checkRows(){
 		if(counter2 == 11){ //if all cells in row are full
 			for(int c = 0; c<11; ++c){ //delete the row from board
 				board[i][c].setType(' ');
+				if(board[i][c].getSet()){		//only for ones set concretely on board
+					blockids.at(board[i][c].getId()) --;
+					if(blockids.at(board[i][c].getId()) == 0){
+						s->genScoreBlock(board[i][c].getLevel());
+						cout << "CALLED" << endl;
+					}
+				}
 				board[i][c].setcell(false);
 			}
-			for(int k = i-1; k>=0; k--){
+			for(int k = i-1; k>=0; k--){ 				//push everything down one
 				for(int c = 0; c<11; ++c){
 					if(board[k][c].getSet()){
 						board[k+1][c].setType(board[k][c].getType());//copy row down one
 						board[k+1][c].setcell(true);
+						board[k+1][c].setLevel(board[k][c].getLevel());
+						board[k+1][c].setId(board[k][c].getId());
 					}
-					board[k][c].setType(' ');//delete current row
+					board[k][c].setType(' ');//delete from original position
 					board[k][c].setcell(false);
+					board[k][c].setId(-1);
+					board[k][c].setLevel(-1);
 				}
 				
 			}

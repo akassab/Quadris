@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace std;
 
-Cell::Cell(int r, int c):  r{r}, c{c}, type{' '}, set{false} {}
+Cell::Cell(int r, int c):  r{r}, c{c}, type{' '}, set{false}, id{-1} {}
 
 
 Cell::~Cell() {
@@ -26,7 +26,7 @@ void Cell::setLevel(int l) {
 	level = l;
 }
 void Cell::setcell(bool flag){
-	cout << "row: " << r << "col: " << c << endl;
+	//cout << "row: " << r << "col: " << c << endl;
 	set = flag;
 }
 

@@ -1,5 +1,5 @@
 #include "score.h"
-
+#include <iostream>
 Score::Score(): level{0}, cscore{0}, hscore{0} {}
 
 int Score::getScore(){
