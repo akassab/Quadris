@@ -23,7 +23,8 @@ void Board::init(){
 	nb = new newBlock();
 	nb->newseqn("sequence.txt");
 	newBlk = nb->generatenew();
-	current = Block::Create(newBlk);	
+	current = Block::Create(newBlk);
+	current -> setLevel(level);	
 	for(unsigned int i =0; i<18; ++i){ //create new board
 		vector<Cell> row;
 		for(unsigned int j = 0; j<11; ++j){
@@ -40,6 +41,7 @@ void Board::init(){
 	putonBoard();
 	newBlk = nb->generatenew();
 	newblock = Block::Create(newBlk);
+	newblock -> setLevel(level);
 	notifyObservers(); //so that textdisplay knows new block
 }
 
@@ -48,6 +50,8 @@ void Board::restart(){
         (*this).detach(td);
         td = new TextDisplay();
         (*this).attach(td);
+	//s->restart();
+	//nb->restart();
 		
 }
 void Board::print(){
@@ -114,22 +118,44 @@ bool Board::drop(){
 		score = s->getScore();
 		notifyObservers(); //only notify display observers if score changes
 	}
+	if(rows == 0 && level == 4){
+		cout <<" STARCOUNTERINCREASE: " << starcounter << endl;
+		starcounter ++ ;
+	}
+	else{
+		starcounter = 0;
+	}		
 	delete current; //get rid of current block
+	if(starcounter == 5){
+		starcounter = 0;
+		dropstar();
+	}
 	current = newblock; //create the new current block
-	current->setLevel(level); //set the level of the current block
-	cout << "Check1" << endl;
 	if(!checkFit()){
 		return false; //the game is over!
 	}
-	cout << "Check2" << endl;
 	checkRows();
 	newBlk = nb->generatenew(); //generate new newblock
 	newblock = Block::Create(newBlk);
+	newblock -> setLevel(level);
 	putonBoard(); //place new current on top left of board
 	notifyObservers();
 	return true;
 }
 
+void Board::dropstar(){
+	for(int r = 3; r< 19; ++r){
+		if(isFull(r,5) == true){
+			board[r-1][5].setType('*');
+		}
+	}
+	int rows = checkRows();//check for completed rows
+        if(rows!=0){
+                s->genScoreRows(rows);
+                score = s->getScore();
+        }
+
+}
 int Board::checkRows(){
 	int counter = 0; //how many full rows there are
 	for(int i = 0; i< 18; i++){

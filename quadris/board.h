@@ -25,6 +25,7 @@ class Board: public Subject {
 	bool isFull(int r, int c); //checks if cell is full
 	void droponBoard(); //sets current onto the board (drop)
 	int checkRows();
+	int starcounter;
 	public:
 	void init();//initialized board
 	void restart(); //restart board
@@ -37,6 +38,7 @@ class Board: public Subject {
 	void clockwise(int mult = 1);
 	void cclockwise(int mult = 1);
 	//
+	void dropstar();
 	void removeBlock(int r, int c); //removes previous position of current block from board
 	void putonBoard(bool flag= false, bool flag2 = false); //places current piece on board for display
 	//first field is for if it should be firmly put on board, second field for if blank cells should be put on board as well(rotations)
