@@ -193,7 +193,8 @@ void Board::down(bool flag, int mult){
 	*/
 }
 
-void Board::drop(){
+bool Board::drop(int mult){
+	for(int i = 0; i< mult; i++){
 	droponBoard();//set the current Block on the board
 	blockids.push_back(4);
 	id++;
@@ -216,7 +217,7 @@ void Board::drop(){
 	}
 	current = newblock; //create the new current block
 	if(!checkFit()){
-		init(); //the game is over!
+		return false; //the game is over!
 	}
 	//checkRows();
 	newBlk = nb->generatenew(); //generate new newblock
@@ -224,6 +225,8 @@ void Board::drop(){
 	newblock -> setLevel(level);
 	putonBoard(); //place new current on top left of board
 	notifyObservers();
+	}
+	return true;
 }
 
 void Board::dropstar(){
@@ -240,6 +243,7 @@ void Board::dropstar(){
         if(rows!=0){
                 s->genScoreRows(rows);
                 score = s->getScore();
+		notifyObservers();
         }
 
 }

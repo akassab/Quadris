@@ -55,7 +55,7 @@ void GraphicsDisplay::notify(Subject &whoNotified){
 }
 
 void GraphicsDisplay::notify(Board &whoNotified){
-	xw.fillRectangle(0,0,330,100,1);
+	xw.fillRectangle(0,0,330,100,0);
 	//cout<< "HI1" << endl;
 	string s = "score: "; 
 	xw.drawBigString(0,0,s);

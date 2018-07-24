@@ -14,6 +14,7 @@
 
 using namespace std;
 int main() {
+	bool game = true;
 	Board *b = new Board();	
 	GraphicsDisplay *grd = new GraphicsDisplay();
 	b->setObserver(grd);
@@ -47,7 +48,7 @@ int main() {
 			b->cclockwise(mult);
 		}
 		else if (val == "drop"){
-			b->drop();
+			game = b->drop(mult);
 		}
 		else if (val == "levelup"){
 			b->levelup(mult);
@@ -80,8 +81,14 @@ int main() {
 		else if (val == "T"){
 			b->replace('T');
 		}
-		
+		if(game){
 			b->print();
-		
+		}
+		else{
+			grd->restart();
+			b->setObserver(grd);
+			b->init();
+			b->print();
+		}
 	}
 }

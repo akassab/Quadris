@@ -36,7 +36,7 @@ class Board: public Subject {
 	//User current block transformations/moves
 	void right(int mult = 1);
 	void left(int mult = 1);
-	void drop();
+	bool drop(int mult = 1);
 	void down(bool flag = true,int mult = 1); //if flag is true then should still check for isHeavy
 	void clockwise(int mult = 1);
 	void cclockwise(int mult = 1);
