@@ -1,10 +1,12 @@
 #include "newblock.h"
 #include <cstdlib>
 #include <time.h>
+#include <vector>
+#include <fstream>
 using namespace std;
 
 
-newBlock::newBlock(): level{0}, random{false}, type{' '} {}
+newBlock::newBlock(): level{0}, random{false}, type{' '}, charpos{0}, seqfname{"sequence.txt"} {}
 
 void newBlock::rando(bool random){
 	this->random = random;
@@ -29,32 +31,34 @@ int newBlock::ran(int min, int max) //range : [min, max)
    return min + rand() % (( max + 1 ) - min);
 }
 
+void newBlock::newseqn(string s){//make sure to call this before generatenew() every time there is a new seqfile
+	seq.clear();
+	charpos = 0;
+	seqfname = s;
+	char x;
+   	ifstream in;
+    	in.open(s);
+    	if (!in) {
+       		cout << "Unable to open file" << endl;
+    	}
+    	while (in >> x) {
+       		seq.push_back(x);
+    	}
+    	in.close();
+}
+
 char newBlock::generatenew(){
-	/*if(v1 == 0){
-		return 'I';
-	}
-	else if (v1==1){
-		return 'S';
-	}
-	else if (v1==2){
-		return 'L';
-	}
-	else if (v1==3){
-		return 'O';
-	}
-	else if (v1 == 4){
-		return 'Z';
-	}
-	else if (v1 == 5){
-		return 'T';
-	}
-	else if (v1 == 6){
-		return 'J';
-	} */
-	//remove the above and the bottom line return I at the end	
 	if(level ==0){
-	return 'I';
 	// read in sequence from file provided on command line how do I do this every generatenew()
+		char c;
+		if(charpos < seq.size()){
+			c = seq.at(charpos);
+			++charpos;
+		}else{
+			charpos = 0;
+			return generatenew();
+		}
+		return c;
 	}else if(level == 1){
 	//S and Z = 1/12, rest = 1/6
 		int n = newBlock::ran(1,12);
@@ -154,8 +158,7 @@ char newBlock::generatenew(){
 		else if (n==9){
 			return 'J';
 		}
-
 	}
 	return 'I';
-
 }
+

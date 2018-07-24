@@ -21,6 +21,7 @@ void Board::init(){
 	s = new Score();
 	delete nb;
 	nb = new newBlock();
+	nb->newseqn("sequence.txt");
 	newBlk = nb->generatenew();
 	current = Block::Create(newBlk);	
 	for(unsigned int i =0; i<18; ++i){ //create new board
@@ -290,8 +291,6 @@ void Board::removeBlock(int r, int c){
 
 
 void Board::droponBoard(){
-	int c = current->getC();
-	
 	while(true){
 		int r = current->getR();
 		down();
