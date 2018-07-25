@@ -22,24 +22,26 @@ int main(int argc, char *argv[]) {
 	int seed;
 	int level = 0;
 	if(argc>1){
+		for(int i =1; i<argc; ++i){
 		string str;
-		istringstream ss(argv[1]);
+		istringstream ss(argv[i]);
 		ss >> str;
 		if(str == "-text"){
 			graphics = false;
 		}
 		else if (str == "-seed"){
-			istringstream ss2(argv[2]);
+			istringstream ss2(argv[i+1]);
 			ss2 >> seed;
 			newseed = true;
 		}
 		else if (str == "-scriptfile"){
-			istringstream ss3(argv[2]);
+			istringstream ss3(argv[i+1]);
 			ss3 >> scriptf;
 		}
 		else if (str == "-startlevel"){
-			istringstream ss4(argv[2]);
+			istringstream ss4(argv[i+1]);
 			ss4 >> level;
+		}
 		}
 	}
 	bool game = true;
@@ -90,7 +92,7 @@ int main(int argc, char *argv[]) {
 			if(graphics){
 				grd->restart();
 			}
-			b->init();
+			b->init(newseed, seed, level, scriptf);
 		}
 		else if (val == "I"){
 			b->replace('I');
@@ -128,7 +130,7 @@ int main(int argc, char *argv[]) {
 			if(graphics){
 				grd->restart();
 			}
-			b->init();
+			b->init(newseed, seed, level, scriptf);
 			b->print();
 		}
 	}

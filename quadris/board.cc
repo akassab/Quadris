@@ -10,6 +10,7 @@ using namespace std;
 
 
 void Board::init(bool newseed,  int seed, int level, string scriptfile){
+	starcounter = 0;
 	id = 0;
 	blockids.clear();
 	score = 0;
