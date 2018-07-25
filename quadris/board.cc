@@ -397,8 +397,13 @@ void Board::random(){
 }
 
 void Board::norandom(string s){
-	if(level == 4 || level == 4){
+	if(level == 3 || level == 4){
 		nb->norandom(s);
+		delete newblock;
+		newBlk = nb->generatenew();
+		newblock = Block::Create(newBlk);
+		newblock -> setLevel(level);
+		notifyObservers();
 	}
 }
 

@@ -89,6 +89,7 @@ int main() {
 		else if (val == "norandom"){
 			string s;
 			cin >> s;
+			b->norandom(s);
 		}
 		if(game){
 			b->print();

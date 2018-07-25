@@ -116,6 +116,7 @@ char newBlock::generatenew(){
 
 	}else if(level == 3){
 	//S and Z = 2/9, rest = 1/9, HEAVY	
+	if(random){
 		int n = newBlock::ran(1,9);
 		if(n == 1 || n==2){
 			return 'Z';
@@ -138,9 +139,21 @@ char newBlock::generatenew(){
 		else if (n==9){
 			return 'J';
 		}
-	
+	}
+	else{
+		char c;
+		if(charpos < seq.size()){
+			c = seq.at(charpos);
+			++charpos;
+		}else{
+			charpos = 0;
+			return generatenew();
+		}
+		return c;
+	}
 	}else if(level == 4){
 	//Same as lvl3 and multiple of 5 blocks dropped w/o one row cleared = drop * center
+	if(random){	
 		int n = newBlock::ran(1,9);
 		if(n == 1 || n==2){
 			return 'Z';
@@ -163,6 +176,18 @@ char newBlock::generatenew(){
 		else if (n==9){
 			return 'J';
 		}
+	}
+	else{
+		char c;
+		if(charpos < seq.size()){
+			c = seq.at(charpos);
+			++charpos;
+		}else{
+			charpos = 0;
+			return generatenew();
+		}
+		return c;
+	}
 	}
 	return 'I';
 }
