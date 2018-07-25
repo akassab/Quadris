@@ -71,7 +71,8 @@ int main(int argc, char *argv[]) {
 			b->right(mult);
 		}
 		else if (val == "down"){
-			b->down(mult);
+			cout << "mult: " << mult << endl;
+			b->down(true, mult);
 		}
 		else if (val == "clockwise"){
 			b->clockwise(mult);

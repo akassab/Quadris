@@ -60,18 +60,6 @@ void Board::init(bool newseed,  int seed, int level, string scriptfile){
 	newblock -> setLevel(level);
 	notifyObservers(); //so that textdisplay knows new block
 }
-/*
-void Board::restart(){
-	delete td;
-        (*this).detach(td);
-        td = new TextDisplay();
-        (*this).attach(td);
-	s->restart();
-	delete nb;
-	nb = new 
-		
-}
-*/
 
 void Board::setObserver(Observer *ob){
 	this->ob = ob;
@@ -139,26 +127,12 @@ void Board::left(int mult){
                         putonBoard();
                 }
         }
-	/*
-	current->left();
-	int r = current->getR();
-	int c = current->getC();
-	if(checkFit()){ //check if block movement fits in board
-		removeBlock(r,c+1);
-		putonBoard();
-	}
-	else{
-		current->right();
-	}
-	if(current->isHeavy() && mult == 1){
-		down(false);
-	}
-	*/
 }
 void Board::down(bool flag, int mult){
 	int r = current->getR();
         int c = current->getC();
         int counter = 0;
+	cout << "mult: " << mult << endl;
         for(int i = 0; i< mult ;++i){
                 current->down();
                 r = current->getR();
@@ -169,32 +143,15 @@ void Board::down(bool flag, int mult){
                         counter ++;
                 }
                 else{
-                        //cout << "left" << endl;
                         current->up();
                 }
                 if(i == mult-1 && current->isHeavy() && (counter>0) && flag){
                         down(false);
                 }
                 else if (i==mult-1 && (counter>0)){
-                        //cout << "place on board" << endl;
                         putonBoard();
                 }
         }
-	/*
-	current->down();
-	int r = current->getR();
-	int c = current->getC();
-	if(checkFit()){
-		removeBlock(r-1,c);
-		putonBoard();
-	}
-	else{
-		current->up();
-	}
-	if(current->isHeavy() && flag && mult == 1){
-		down(false);
-	}
-	*/
 }
 
 bool Board::drop(int mult){
@@ -268,14 +225,13 @@ int Board::checkRows(){
 		}
 		if(counter2 == 11){ //if all cells in row are full
 			for(int c = 0; c<11; ++c){ //delete the row from board
-				board[i][c].setType(' ',false);
 				if(board[i][c].getSet() && board[i][c].getType() != '*'){		//only for ones set concretely on board
 					blockids.at(board[i][c].getId()) --;
 					if(blockids.at(board[i][c].getId()) == 0){
 						s->genScoreBlock(board[i][c].getLevel());
-						cout << "hello" << endl;
 					}
 				}
+				board[i][c].setType(' ',false);
 				board[i][c].setcell(false);
 			}
 			for(int k = i-1; k>=0; k--){ 				//push everything down one
@@ -586,14 +542,7 @@ char Board::getnewBlock(int r, int c){
 	return newblock->getChar(r , c);
 }
 
-int Board::getnewBlockHeight(){
-	return newblock->getHeight();
-}
-
 int Board::getnewBlockDim(){
 	return newblock->getDim();
 }
-
-void Board::changeSeed(int seed){
-	nb->changeSeed(seed);
-}	
+	

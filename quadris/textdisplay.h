@@ -12,7 +12,6 @@ class TextDisplay: public Observer{
 	int level;
 	int score;
 	int hiscore;
-	int newblockheight; //height of the newblock
 	int newblockdim; //dimensions of the newblock
 	char nextblock;//char of the nextblock
 	public:

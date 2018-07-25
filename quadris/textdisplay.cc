@@ -9,7 +9,6 @@ void TextDisplay::notify(Board &whoNotified){
 	level = whoNotified.getLevel();
 	score = whoNotified.getScore();
 	hiscore = whoNotified.getHscore();
-	newblockheight = whoNotified.getnewBlockHeight();
 	newblockdim = whoNotified.getnewBlockDim();
 	for(int i =0; i< 4; ++i){
 		for(int j = 0; j<4; ++j){
@@ -54,14 +53,20 @@ ostream &operator<<(ostream &out, const TextDisplay &td){
 	}	
 	out << "-----------" << endl;
 	out << "Next:" << endl;
-	
-	for(int c = 0; c+td.newblockheight< 4; ++c){ //printing out the new block
-		for(int d = 0; d<4 ; ++d){
-			out << td.nbDisplay[c+td.newblockheight][d];
+	for (int c = 0; c<4; ++c){
+		bool flag = true;
+		for(int a = 0; a<4; ++a){
+			if(td.nbDisplay[c][a] != ' '){
+				flag = false;
+			}
+		}
+		if(!flag){
+		for(int d = 0; d<4; ++d){
+			out << td.nbDisplay[c][d];
 		}
 		out << endl;
+		}
 	}
-	
 	return out;
 
 }
