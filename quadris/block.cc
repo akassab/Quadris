@@ -133,4 +133,13 @@ bool Block::isHeavy(){
 	else{
 		return false;
 	}
-}		
+}
+
+void Block::setR(int r){
+	this->r = r;
+}
+
+void Block::setC(int c){
+	this->c = c;
+}
+			

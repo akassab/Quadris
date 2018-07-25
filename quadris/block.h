@@ -34,6 +34,8 @@ class Block {
 		void drop(); 
 		int getR(); //return coordinates
 		int getC();
+		void setR(int r);
+		void setC(int c);
 		int getHeight();
 		bool isHeavy(); //return true if block generated on level 3
 		std::vector<std::vector<char>> getCurrent(); //returns vector of positions

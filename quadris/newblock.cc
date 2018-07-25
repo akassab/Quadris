@@ -8,8 +8,13 @@ using namespace std;
 
 newBlock::newBlock(): level{0}, random{false}, type{' '}, charpos{0}, seqfname{"sequence.txt"} {}
 
-void newBlock::rando(bool random){
-	this->random = random;
+void newBlock::rando(){
+	this->random = true;
+}
+
+void newBlock::norandom(string s){
+	this->random = false;
+	newseqn(s);
 }
 
 void newBlock::replace(char type){
@@ -110,7 +115,7 @@ char newBlock::generatenew(){
 		} 
 
 	}else if(level == 3){
-	//S and Z = 2/9, rest = 1/9, HEAVY
+	//S and Z = 2/9, rest = 1/9, HEAVY	
 		int n = newBlock::ran(1,9);
 		if(n == 1 || n==2){
 			return 'Z';

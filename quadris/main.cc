@@ -14,6 +14,7 @@
 
 using namespace std;
 int main() {
+	cin.exceptions(ios::eofbit);
 	bool game = true;
 	Board *b = new Board();	
 	GraphicsDisplay *grd = new GraphicsDisplay();
@@ -24,6 +25,7 @@ int main() {
 	string cmd;
 	b->print();
 //	bool game = true; //if game is not over
+	try{
 	while(true){
 		int mult;
 		if(!(cin>>mult)){
@@ -57,8 +59,8 @@ int main() {
 			b->leveldown(mult);
 		}
 		else if (val == "restart"){
-			b->init();
 			grd->restart();
+			b->init();
 		}
 		else if (val == "I"){
 			b->replace('I');
@@ -81,14 +83,22 @@ int main() {
 		else if (val == "T"){
 			b->replace('T');
 		}
+		else if (val == "random"){
+			b->random();
+		}
+		else if (val == "norandom"){
+			string s;
+			cin >> s;
+		}
 		if(game){
 			b->print();
 		}
 		else{
 			grd->restart();
-			b->setObserver(grd);
 			b->init();
 			b->print();
 		}
 	}
+	}
+	catch (ios::failure &) {}
 }

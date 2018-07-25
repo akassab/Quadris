@@ -390,8 +390,16 @@ void Board::cclockwise(int mult){
 }
 
 
-void Board::random(bool random){
-	nb->rando(random);
+void Board::random(){
+	if(level == 3 || level == 4){
+		nb->rando();
+	}
+}
+
+void Board::norandom(string s){
+	if(level == 4 || level == 4){
+		nb->norandom(s);
+	}
 }
 
 bool Board::checkFit(){
@@ -538,10 +546,27 @@ int Board::getScore(){
 }
 
 void Board::replace(char c){
-	newBlk = c;
-	delete newblock;
-	newblock = Block::Create(newBlk);
-	notifyObservers();
+	int row = current->getR();//original coordinates
+	int col = current->getC();
+	Block *tmp = Block::Create(c);
+	Block *tmp1 = current;
+	current = tmp;
+	current->setR(row);
+	current->setC(col);
+	
+	if(checkFit()){
+		current = tmp1;
+		removeBlock(row,col);
+		current = tmp;
+		current->setLevel(tmp1->getLevel());
+		delete tmp1;
+		putonBoard();
+		notifyObservers();
+	}
+	else{
+		current = tmp1;
+		delete tmp;
+	}
 }
 
 int Board::getHscore(){

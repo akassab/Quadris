@@ -47,8 +47,8 @@ class Board: public Subject {
 	//first field is for if it should be firmly put on board, second field for if blank cells should be put on board as well(rotations)
 	//User interactions
 	void replace(char type);
-	void random(bool random);
-	
+	void random();
+	void norandom(std::string s);	
 	void setObserver(Observer *ob);
 	//Observer accessor functions
 	int getHscore();
