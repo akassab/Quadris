@@ -5,10 +5,18 @@ using namespace std;
 
 GraphicsDisplay::GraphicsDisplay(){
 	xw.fillRectangle(0,0,330,900,1);
+
+	xw.fillRectangle(0,820,330,80,0);
+	xw.drawBigString(0,850,"QUADRIS", 1);
+        xw.drawBigString(0,875,"By: Peter, Gursirat, and Ayman",1);
 }
 
 void GraphicsDisplay::restart(){
 	xw.fillRectangle(0,0,330,900,1);
+
+	xw.fillRectangle(0,820,330,80,0);
+	xw.drawBigString(0,850,"QUADRIS", 1);
+        xw.drawBigString(0,875,"By: Peter, Gursirat, and Ayman",1);
 }
 void GraphicsDisplay::notify(Cell &whoNotified){
         int r = whoNotified.getR();
@@ -66,7 +74,7 @@ void GraphicsDisplay::notify(Subject &whoNotified){
 
 void GraphicsDisplay::notify(Board &whoNotified){
 	xw.fillRectangle(0,0,330,100,0);
-	xw.fillRectangle(0,640,330,260,0);
+	xw.fillRectangle(0,640,330,180,0);
 	level = whoNotified.getLevel();
         score = whoNotified.getScore();
         hiscore = whoNotified.getHscore();
@@ -124,9 +132,6 @@ void GraphicsDisplay::notify(Board &whoNotified){
 			}
                 }
         }
-	xw.drawBigString(0,850,"QUADRIS", 1);
-	xw.drawBigString(0,875,"By: Peter, Gursirat, and Ayman",1);
-
 }
 
 

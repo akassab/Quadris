@@ -176,7 +176,9 @@ bool Board::drop(int mult){
 	newblock = Block::Create(newBlk);
 	newblock -> setLevel(level);
 	putonBoard(); //place new current on top left of board
-	notifyObservers();
+	if(rows>0){
+		notifyObservers();
+	}
 	}
 	return true;
 }
@@ -376,22 +378,34 @@ bool Board::isFull(int r, int c){
 }
 
 void Board::levelup(int mult){
+	int counter = 0;
 	for(int i = 0; i < mult; ++i){
-		level ++;
+		if(level != 4){
+			level ++;
+			counter ++;
+		}
 	}
-	s->setLvl(level);//notify score object
-	nb->setLvl(level);//notify newblock object
-	notifyObservers();	
+	if(counter != 0){
+		s->setLvl(level);//notify score object
+		nb->setLvl(level);//notify newblock object
+		notifyObservers();
+	}	
 
 }
 
 void Board::leveldown(int mult){
+	int counter = 0;
 	for(int i =0; i<mult; ++i){
-		level --;
+		if(level != 0){
+			level --;
+			counter ++;
+		}
 	}
-	s->setLvl(level);
-	nb->setLvl(level);
-	notifyObservers();
+	if(counter != 0){
+		s->setLvl(level);
+		nb->setLvl(level);
+		notifyObservers();
+	}
 
 }
 
