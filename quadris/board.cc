@@ -83,15 +83,12 @@ void Board::right(int mult){
 			counter ++;
 		}
 		else{
-			//cout << "left" << endl;
 			current->left();
 		}
 		if(i == mult-1 && current->isHeavy() && (counter>0)){
-			//cout << "heavy" << endl;
 			down(false);
 		}
 		else if (i==mult-1 && (counter>0)){
-			//cout << "place on board" << endl;
 			putonBoard();
 		}
 	}
@@ -115,15 +112,12 @@ void Board::left(int mult){
                         counter ++;
                 }
                 else{
-                        //cout << "left" << endl;
                         current->right();
                 }
                 if(i == mult-1 && current->isHeavy() && (counter>0)){
-                        //cout << "heavy" << endl;
                         down(false);
                 }
                 else if (i==mult-1 && (counter>0)){
-                        //cout << "place on board" << endl;
                         putonBoard();
                 }
         }
@@ -132,7 +126,6 @@ void Board::down(bool flag, int mult){
 	int r = current->getR();
         int c = current->getC();
         int counter = 0;
-	cout << "mult: " << mult << endl;
         for(int i = 0; i< mult ;++i){
                 current->down();
                 r = current->getR();
@@ -163,7 +156,6 @@ bool Board::drop(int mult){
 	if(rows!=0){
 		s->genScoreRows(rows);
 		score = s->getScore();
-		notifyObservers(); //only notify display observers if score changes
 	}
 	if(rows == 0 && level == 4){
 		starcounter ++ ;
@@ -180,7 +172,6 @@ bool Board::drop(int mult){
 	if(!checkFit()){
 		return false; //the game is over!
 	}
-	//checkRows();
 	newBlk = nb->generatenew(); //generate new newblock
 	newblock = Block::Create(newBlk);
 	newblock -> setLevel(level);
@@ -204,7 +195,6 @@ void Board::dropstar(){
         if(rows!=0){
                 s->genScoreRows(rows);
                 score = s->getScore();
-		notifyObservers();
         }
 
 }
@@ -225,7 +215,7 @@ int Board::checkRows(){
 		}
 		if(counter2 == 11){ //if all cells in row are full
 			for(int c = 0; c<11; ++c){ //delete the row from board
-				if(board[i][c].getSet() && board[i][c].getType() != '*'){		//only for ones set concretely on board
+				if(board[i][c].getSet() && board[i][c].getType() != '*'){//only for ones set concretely on board
 					blockids.at(board[i][c].getId()) --;
 					if(blockids.at(board[i][c].getId()) == 0){
 						s->genScoreBlock(board[i][c].getLevel());
@@ -252,7 +242,6 @@ int Board::checkRows(){
 			counter ++;	
 		}
 	}
-	cout << "lastemptyrow" << lastemptyrow << endl;
 	if(counter>0){
 		for(int i = lastemptyrow+1; i<18; ++i){
 			for(int j = 0; j<11; ++j){
@@ -335,18 +324,7 @@ void Board::cclockwise(int mult){
                 }
         }
 
-	/*
-	current->rotateCounterClockwise();
-	if (checkFit()) {
-		putonBoard(false, true);
-	}
-	else {
-		current->rotateCounterClockwise();
-	}
-	if(current->isHeavy() && mult == 1){
-		down(false);
-	}
-	*/
+	
 }
 
 
@@ -384,7 +362,6 @@ bool Board::checkFit(){
 }
 
 bool Board::isFull(int r, int c){
-	//cout << "r is: " << r << "c is: " << c << endl;
 	if(r>17 || r<0 || c>10 || c<0){ //if it is outside boundaries return true
 		return true;
 	}
@@ -448,17 +425,13 @@ void Board::putonBoard(bool flag, bool flag2){
 }
 
 void Board::removeBlock(int r, int c){
-        cout << "col: " << c << endl;
 	int dim = current->getDim();
 	r = r - dim + 1;
         for (int i = 0; i < dim; ++i) {
                 for (int j = 0; j < dim; ++j) {
                         char chr = current->getChar(i,j);
                         if (chr != ' ') {
-				//cout << "char" << chr << endl;
-                                //cout << "row: " << r+i << "col: " << c+j << endl;
 				board[r+i][c+j].setType(' ');
-				//cout << "char" << chr << endl;
                                 board[r+i][c+j].setId(id);
                         }
                 }
@@ -489,17 +462,7 @@ void Board::droponBoard(){
 		counter ++;
 	}
 	putonBoard(true,false);
-	/*
-	while(true){
-		int r = current->getR();
-		down();
-		int r2 = current->getR();
-		if(r == r2 || r == 0){
-			break;
-		}
-	}
-	putonBoard(true,false); //place on board concretely
-	*/
+	
 }
 
 int Board::getLevel(){

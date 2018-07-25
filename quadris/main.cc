@@ -11,15 +11,18 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <fstream>
 
 using namespace std;
 int main(int argc, char *argv[]) {
-	cin.exceptions(ios::eofbit);
+	cin.exceptions(ios::eofbit); //eof handling
 	GraphicsDisplay *grd;
-	bool graphics = true;
-	bool newseed = false;
-	string scriptf = "sequence.txt";
-	int seed;
+	ifstream ifs; 
+	bool sequence = false; //if we are reading in from file instead of user
+	bool graphics = true; //if graphics are to be used
+	bool newseed = false; //if we should set a new seed
+	string scriptf = "sequence.txt"; //default file to read in blocks from
+	int seed;//new seed to be set
 	int level = 0;
 	if(argc>1){
 		for(int i =1; i<argc; ++i){
@@ -58,11 +61,27 @@ int main(int argc, char *argv[]) {
 	try{
 	while(true){
 		int mult;
-		if(!(cin>>mult)){
-			cin.clear();
-			mult = 1;
+		if(sequence){
+			if(!(ifs>>mult)){
+				ifs.clear();
+				mult=1;
+			}
+			ifs>>cmd;
+			if(ifs.eof()){
+				//cout <<"REKT" << endl;
+				sequence = false;
+				ifs.close();
+			}
+			//cout << "BANTER" << endl;
 		}
-		cin>>cmd;
+		else{
+			if(!(cin>>mult)){
+				cin.clear();
+				mult = 1;
+			}
+			cin>>cmd;
+		
+		}
 		string val = i->interpret(cmd);
 		if(val == "left"){
 			b->left(mult);
@@ -71,7 +90,6 @@ int main(int argc, char *argv[]) {
 			b->right(mult);
 		}
 		else if (val == "down"){
-			cout << "mult: " << mult << endl;
 			b->down(true, mult);
 		}
 		else if (val == "clockwise"){
@@ -123,6 +141,17 @@ int main(int argc, char *argv[]) {
 			string s;
 			cin >> s;
 			b->norandom(s);
+		}
+		else if (val == "sequence"){			
+			string s;
+			cin >> s;
+			ifs.open(s);
+			if(!ifs){
+				cout << "Cannot open file" << endl;
+			}else{
+				cout << "true" << endl;
+				sequence = true;
+			}
 		}
 		if(game){
 			b->print();
