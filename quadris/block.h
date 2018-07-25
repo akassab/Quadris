@@ -23,7 +23,7 @@ class Block {
 		void setLevel(int level);
 		int getLevel();
 		char getChar(int r, int c);
-		static Block *Create(char type);
+		static Block *Create(char type);//create new subclass block of type
 		void rotateClockwise();
 		void rotateCounterClockwise();
 		int getDim();
@@ -36,11 +36,7 @@ class Block {
 		int getC();
 		void setR(int r);
 		void setC(int c);
-		int getHeight();
 		bool isHeavy(); //return true if block generated on level 3
-		std::vector<std::vector<char>> getCurrent(); //returns vector of positions
-		// print the current orientation
-		//void printCurrent();
-		static void setBlocksSoFar();
+		
 };
 #endif

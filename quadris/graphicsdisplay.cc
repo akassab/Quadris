@@ -97,7 +97,7 @@ void GraphicsDisplay::notify(Board &whoNotified){
         newblockdim = whoNotified.getnewBlockDim();
 	int start = 680;//start at 680
 	int cSize = 30;
-        for(int i =0; i< 4; ++i){
+        for(int i =0; i< 4; ++i){ //read in new block
                 for(int j = 0; j<4; ++j){
                         if(i>= newblockdim || j>=newblockdim){
 				xw.fillRectangle(cSize*j,start+cSize*i,cSize,cSize,0);

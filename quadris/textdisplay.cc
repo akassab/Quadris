@@ -10,7 +10,7 @@ void TextDisplay::notify(Board &whoNotified){
 	score = whoNotified.getScore();
 	hiscore = whoNotified.getHscore();
 	newblockdim = whoNotified.getnewBlockDim();
-	for(int i =0; i< 4; ++i){
+	for(int i =0; i< 4; ++i){ //get newBlock
 		for(int j = 0; j<4; ++j){
 			if(i>= newblockdim || j>=newblockdim){
 				nbDisplay[i][j] = ' ';
@@ -29,7 +29,7 @@ void TextDisplay::notify(Cell &whoNotified){
 	theDisplay[r][c] = type;
 }
 
-void TextDisplay::notify(Subject &whoNotified){
+void TextDisplay::notify(Subject &whoNotified){ //dynamic casting to determine which subclass
 		Subject* subptr = &whoNotified;
                 if(Board* b = dynamic_cast<Board *>(subptr)){
                         notify(*b);
@@ -47,20 +47,20 @@ ostream &operator<<(ostream &out, const TextDisplay &td){
 
 	for(int i = 0; i< 18; ++i){
 		for(int j = 0; j< 11; ++j){
-			out << td.theDisplay[i][j];
+			out << td.theDisplay[i][j]; //parse through board, adding to out stream
 		}
 		out << endl;
 	}	
 	out << "-----------" << endl;
 	out << "Next:" << endl;
-	for (int c = 0; c<4; ++c){
+	for (int c = 0; c<4; ++c){ //add new block to out stream
 		bool flag = true;
 		for(int a = 0; a<4; ++a){
 			if(td.nbDisplay[c][a] != ' '){
 				flag = false;
 			}
 		}
-		if(!flag){
+		if(!flag){ //if the row is empty, then ignore it
 		for(int d = 0; d<4; ++d){
 			out << td.nbDisplay[c][d];
 		}

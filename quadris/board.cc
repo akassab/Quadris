@@ -56,13 +56,13 @@ void Board::init(bool newseed,  int seed, int level, string scriptfile){
 	}
 	putonBoard();
 	newBlk = nb->generatenew();
-	newblock = Block::Create(newBlk);
-	newblock -> setLevel(level);
+	newblock = Block::Create(newBlk); //generate and create nextblock
+	newblock -> setLevel(level); //set next block level to current level
 	notifyObservers(); //so that textdisplay knows new block
 }
 
 void Board::setObserver(Observer *ob){
-	this->ob = ob;
+	this->ob = ob; //add in graphics object
 }
 
 void Board::print(){
@@ -72,13 +72,13 @@ void Board::print(){
 void Board::right(int mult){
 	int r = current->getR();
 	int c = current->getC();
-	int counter = 0;
+	int counter = 0; 
 	for(int i = 0; i< mult ;++i){
 		current->right();
 		c = current->getC();
 		if(checkFit()){
 			if(i == 0){
-				removeBlock(r,c-1);
+				removeBlock(r,c-1);//when moving first time, remove old current block from board
 			}
 			counter ++;
 		}
@@ -86,10 +86,10 @@ void Board::right(int mult){
 			current->left();
 		}
 		if(i == mult-1 && current->isHeavy() && (counter>0)){
-			down(false);
+			down(false); //if heavy and completed one right successfully, move down once
 		}
 		else if (i==mult-1 && (counter>0)){
-			putonBoard();
+			putonBoard(); //if not heavy and complete one right successfully, put on board
 		}
 	}
 		
@@ -173,12 +173,11 @@ bool Board::drop(int mult){
 		return false; //the game is over!
 	}
 	newBlk = nb->generatenew(); //generate new newblock
+	cout << "newblock: " << newBlk << endl;
 	newblock = Block::Create(newBlk);
 	newblock -> setLevel(level);
 	putonBoard(); //place new current on top left of board
-	if(rows>0){
-		notifyObservers();
-	}
+	notifyObservers();
 	}
 	return true;
 }
@@ -265,9 +264,9 @@ void Board::clockwise(int mult){
 			counter ++;
 		}
 		else {
-			current->rotateCounterClockwise();
+			current->rotateCounterClockwise(); //rotate back if doesn't fit
 		}
-		if(current->isHeavy() && i == mult-1 && counter>0){
+		if(current->isHeavy() && i == mult-1 && counter>0){ //ifheavy
 			int r = current->getR();
 			int c = current->getC();
 			current->down();
@@ -275,15 +274,15 @@ void Board::clockwise(int mult){
 				for(int i =0; i<counter; ++i){
 					current->rotateCounterClockwise();
 				}
-				removeBlock(r,c);
+				removeBlock(r,c); //remove block from old position on board
 				for(int i =0; i<counter; ++i){
 					current->rotateClockwise();
 				}
-				putonBoard();	
+				putonBoard();	//place on board, no need to override whitespace
 			}
 			else{
 				current->up();
-				putonBoard(false,true);
+				putonBoard(false,true); //place on board, overriding whitespace
 			}
 		}
 		else if (i == mult-1 && counter>0){
@@ -340,7 +339,7 @@ void Board::norandom(string s){
 	if(level == 3 || level == 4){
 		nb->norandom(s);
 		delete newblock;
-		newBlk = nb->generatenew();
+		newBlk = nb->generatenew(); //replace new block with sequence generated block
 		newblock = Block::Create(newBlk);
 		newblock -> setLevel(level);
 		notifyObservers();
@@ -496,7 +495,7 @@ void Board::replace(char c){
 	current->setR(row);
 	current->setC(col);
 	
-	if(checkFit()){
+	if(checkFit()){ //if it fits on board, replace current
 		current = tmp1;
 		removeBlock(row,col);
 		current = tmp;
@@ -505,7 +504,7 @@ void Board::replace(char c){
 		putonBoard();
 		notifyObservers();
 	}
-	else{
+	else{ //if it doesn't do nothing
 		current = tmp1;
 		delete tmp;
 	}

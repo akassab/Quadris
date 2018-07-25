@@ -108,20 +108,6 @@ char Block::getChar(int r, int c){
 	return current[r][c];
 }
 
-
-int Block::getHeight(){
-	int retval = 0;
-	for(int i = 0; i<dim; ++i){
-		for(int j = 0; j<dim; ++j){
-			if(current[i][j] != ' '){
-				return retval;
-			}
-		}
-		retval ++;
-	}
-	return retval;
-}
-
 int Block::getLevel(){
 	return level;
 }

@@ -17,9 +17,6 @@ void newBlock::norandom(string s){
 	newseqn(s);
 }
 
-void newBlock::replace(char type){
-	this->type = type;
-}
 
 void newBlock::setLvl(int lvl){
 	level = lvl;

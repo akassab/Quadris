@@ -15,9 +15,9 @@ class Board: public Subject {
 	int id; // id of current block
 	TextDisplay *td = nullptr; //the textdisplay!
 	std::vector<std::vector<Cell>> board; //vector cells representing the quadris board
-	std::vector<int> blockids;
+	std::vector<int> blockids;//vector array, how much of block id is on board
 	Block *current = nullptr; //the current block being moved
-	Block *newblock = nullptr;
+	Block *newblock = nullptr;//the next block being displayed
 	newBlock *nb = nullptr; //the next block to be displayed
 	char newBlk; //the char of the next block to be displayed
 	int score; //the score
@@ -32,10 +32,10 @@ class Board: public Subject {
 	void dropstar(); //dropping star character in level 4
 	void removeBlock(int r, int c); //remove block from previous position (useful for moving)
 	void putonBoard(bool flag = false, bool flag2 = false); //place current block on board
+	bool checkFit();//check if current block fits on board
 	public:
 	~Board();
 	void init(bool newseed = false, int seed = 0, int level = 0, std::string scriptfile = "sequence.txt");//initialized board
-	bool checkFit();//checks if piece fits in board
 	//User current block transformations/moves
 	void right(int mult = 1); //mult is how many times it should be implemented (user multiplier)
 	void left(int mult = 1);
@@ -49,7 +49,7 @@ class Board: public Subject {
 	void norandom(std::string s);	
 	//Observer pattern
 	void setObserver(Observer *ob);
-	//Observer accessor functions
+	//Accessor/mutator functions
 	int getHscore();
 	int getScore();
 	bool getLost();

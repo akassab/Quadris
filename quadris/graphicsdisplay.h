@@ -9,16 +9,14 @@
 class GraphicsDisplay: public Observer{
 
 	Xwindow xw;
-	std::vector<std::vector<char>> theDisplay;
-	std::vector<std::vector<char>> nbDisplay;
+	std::vector<std::vector<char>> theDisplay;//the board
 	int level;
 	int score;
 	int hiscore;
-	int newblockheight; //height of the newblock
 	int newblockdim; //dimensions of the newblock
 	char nextblock;//char of the nextblock
 	public:
-	void restart();
+	void restart();//reset the graphicsdisplay
 	GraphicsDisplay();
 	void notify(Subject &whoFrom);
 	void notify(Board &whoFrom);
