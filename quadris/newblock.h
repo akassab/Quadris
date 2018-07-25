@@ -13,6 +13,8 @@ class newBlock {
 	std::vector<char> seq;
       	unsigned int charpos;
 	std::string seqfname;
+	bool newseed;
+	int seed;
 public:
 	void rando();
 	void norandom(std::string s);
@@ -20,6 +22,7 @@ public:
 	void setLvl(int lvl);
 	void newseqn(std::string s);
 	char generatenew();
+	void changeSeed(int seed);
 	bool isHeavy();
 	newBlock();
 };

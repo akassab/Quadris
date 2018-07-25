@@ -10,21 +10,49 @@
 #include "graphicsdisplay.h"
 #include <iostream>
 #include <string>
-
+#include <sstream>
 
 using namespace std;
-int main() {
+int main(int argc, char *argv[]) {
 	cin.exceptions(ios::eofbit);
+	GraphicsDisplay *grd;
+	bool graphics = true;
+	bool newseed = false;
+	string scriptf = "sequence.txt";
+	int seed;
+	int level = 0;
+	if(argc>1){
+		string str;
+		istringstream ss(argv[1]);
+		ss >> str;
+		if(str == "-text"){
+			graphics = false;
+		}
+		else if (str == "-seed"){
+			istringstream ss2(argv[2]);
+			ss2 >> seed;
+			newseed = true;
+		}
+		else if (str == "-scriptfile"){
+			istringstream ss3(argv[2]);
+			ss3 >> scriptf;
+		}
+		else if (str == "-startlevel"){
+			istringstream ss4(argv[2]);
+			ss4 >> level;
+		}
+	}
 	bool game = true;
-	Board *b = new Board();	
-	GraphicsDisplay *grd = new GraphicsDisplay();
-	b->setObserver(grd);
+	Board *b = new Board();
+	if(graphics){	
+		grd = new GraphicsDisplay();
+		b->setObserver(grd);
+	}
 	Interp *i = new Interp();
 	i->init();
-	b->init();
+	b->init(newseed, seed, level, scriptf);
 	string cmd;
 	b->print();
-//	bool game = true; //if game is not over
 	try{
 	while(true){
 		int mult;
@@ -59,7 +87,9 @@ int main() {
 			b->leveldown(mult);
 		}
 		else if (val == "restart"){
-			grd->restart();
+			if(graphics){
+				grd->restart();
+			}
 			b->init();
 		}
 		else if (val == "I"){
@@ -95,7 +125,9 @@ int main() {
 			b->print();
 		}
 		else{
-			grd->restart();
+			if(graphics){
+				grd->restart();
+			}
 			b->init();
 			b->print();
 		}

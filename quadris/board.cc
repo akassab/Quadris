@@ -9,11 +9,11 @@
 using namespace std;
 
 
-void Board::init(){
+void Board::init(bool newseed,  int seed, int level, string scriptfile){
 	id = 0;
 	blockids.clear();
 	score = 0;
-	level = 0;
+	this->level = level;
 	delete td;
 	(*this).detach(td);
 	td = new TextDisplay();
@@ -29,7 +29,10 @@ void Board::init(){
 	}
 	delete nb;
 	nb = new newBlock();
-	nb->newseqn("sequence.txt");
+	if(newseed == true){
+		nb->changeSeed(seed);
+	}
+	nb->newseqn(scriptfile);
 	newBlk = nb->generatenew();
 	current = Block::Create(newBlk);
 	current -> setLevel(level);
@@ -588,4 +591,8 @@ int Board::getnewBlockHeight(){
 
 int Board::getnewBlockDim(){
 	return newblock->getDim();
+}
+
+void Board::changeSeed(int seed){
+	nb->changeSeed(seed);
 }	

@@ -30,7 +30,7 @@ class Board: public Subject {
 	Observer *ob = nullptr;
 	
 	public:
-	void init();//initialized board
+	void init(bool newseed = false, int seed = 0, int level = 0, std::string scriptfile = "sequence.txt");//initialized board
 	void restart(); //restart board
 	bool checkFit();//checks if piece fits in board
 	//User current block transformations/moves
@@ -63,7 +63,7 @@ class Board: public Subject {
 	int getLevel();
 	char getType(int x, int y);
 	//
-
+	void changeSeed(int seed);
 	int setLevel(int level);	
 
 	void clearNew();

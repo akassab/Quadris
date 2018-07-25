@@ -29,9 +29,14 @@ int newBlock::ran(int min, int max) //range : [min, max)
 {
    static bool first = true;
    if (first) 
-   {  
+   {
+	if(newseed){
+		srand(seed);
+	}
+	else{  
       srand(time(NULL)); //seeding for the first time only!
-      first = false;
+	}
+	first = false;
    }
    return min + rand() % (( max + 1 ) - min);
 }
@@ -50,6 +55,13 @@ void newBlock::newseqn(string s){//make sure to call this before generatenew() e
        		seq.push_back(x);
     	}
     	in.close();
+}
+
+void newBlock::changeSeed(int seed){
+	cout << "TEST1" << endl;
+	newseed = true;
+	this->seed = seed;
+	cout << "test2" << endl;
 }
 
 char newBlock::generatenew(){
