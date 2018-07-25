@@ -124,6 +124,8 @@ void GraphicsDisplay::notify(Board &whoNotified){
 			}
                 }
         }
+	xw.drawBigString(0,850,"QUADRIS", 1);
+	xw.drawBigString(0,875,"By: Peter, Gursirat, and Ayman",1);
 
 }
 
