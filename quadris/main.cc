@@ -136,5 +136,5 @@ int main(int argc, char *argv[]) {
 		}
 	}
 	}
-	catch (ios::failure &) {}
+	catch (ios::failure &) {delete b; delete i;}
 }

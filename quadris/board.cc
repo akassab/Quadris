@@ -545,4 +545,12 @@ char Board::getnewBlock(int r, int c){
 int Board::getnewBlockDim(){
 	return newblock->getDim();
 }
-	
+
+Board::~Board(){
+	delete td;
+	delete ob;
+	delete current;
+	delete newblock;
+	delete nb;
+	delete s;
+}	

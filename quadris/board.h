@@ -33,7 +33,7 @@ class Board: public Subject {
 	void removeBlock(int r, int c); //remove block from previous position (useful for moving)
 	void putonBoard(bool flag = false, bool flag2 = false); //place current block on board
 	public:
-
+	~Board();
 	void init(bool newseed = false, int seed = 0, int level = 0, std::string scriptfile = "sequence.txt");//initialized board
 	bool checkFit();//checks if piece fits in board
 	//User current block transformations/moves
