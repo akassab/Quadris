@@ -1,5 +1,6 @@
 
 # QuadrisProject
+# See quadris.pdf for functionality and guidelines
 
 To play the game:
 1. Open terminal.
