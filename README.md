@@ -1,6 +1,6 @@
 
 # QuadrisProject
-# Mark: %94
+# Mark: %94, Class Avg: ~%60
 
 
 # Report: https://github.com/akassab/QuadrisProject/blob/master/a5-report-report.pdf
