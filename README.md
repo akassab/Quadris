@@ -5,7 +5,7 @@
 # Report: www.github.com/akassab/QuadrisProject/a5-report-report.pdf
 # UML : www.github.com/akassab/QuadrisProject/a5-dd1uml-uml1.pdf
 
-# REQUIRES XMING TO RUN : http://www.geo.mtu.edu/geoschem/docs/putty_install.html
+REQUIRES XMING TO RUN : http://www.geo.mtu.edu/geoschem/docs/putty_install.html
 
 To play the game:
 1. Open terminal.
