@@ -2,6 +2,8 @@
 # QuadrisProject
 # See quadris.pdf for functionality and guidelines
 
+REQUIRES XMING TO RUN : http://www.geo.mtu.edu/geoschem/docs/putty_install.html
+
 To play the game:
 1. Open terminal.
 2. Clone the repo.
