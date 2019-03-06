@@ -5,8 +5,8 @@ Quadris is a Tetris-like game that myself and 2 other students worked on for our
 
 ## Installation
 Requires Xming for GUI : http://www.geo.mtu.edu/geoschem/docs/putty_install.html
-![](X11Enabled.gif)
-![](X11Enabled1.gif)
+![](x11Enabled.gif)
+![](x11Enabled1.gif)
 ```bash
 git clone https://github.com/akassab/QuadrisProject.git
 cd QuadrisProjectProject/quadris
