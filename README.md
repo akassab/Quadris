@@ -3,9 +3,18 @@
 
 Quadris is a Tetris-like game that myself and 2 other students worked on for our final project. 
 
+## What I learned
+Model View Controller MVC pattern in C++
+Observer pattern
+interpreter
+factory pattern
+
 ## Installation
 Requires Xming for GUI : http://www.geo.mtu.edu/geoschem/docs/putty_install.html
+For windows users, make sure your ssh client has X11 forwarding enabled.
+For putty:
 ![](x11Enabled.gif)
+Also make sure Xming is in your taskbar.
 ![](x11Enabled1.gif)
 ```bash
 git clone https://github.com/akassab/QuadrisProject.git
@@ -15,10 +24,20 @@ make
 ```
 ## Usage
 Input(command line only): 
-"right", "left", "down", "clockwise", "counterclockwise", 
-"5right, "5left", "5down", "5clockwise, "5counterclockwise"
+"right", 
+"left", 
+"down",
+"clockwise", 
+"counterclockwise"
 
-Must end with "drop" 
+For faster input"
+"5right,
+"5left", 
+"5down", 
+"5clockwise, 
+"5counterclockwise"
+
+Always end your turn with "drop" 
 
 ![](example.gif)
 
@@ -40,8 +59,5 @@ right drop
 7right 3clockwise drop
 clockwise drop
 clockwise 9right drop
-
-
-
 ```
 
