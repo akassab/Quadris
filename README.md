@@ -5,7 +5,8 @@ Quadris is a Tetris-like game that myself and 2 other students worked on for our
 
 ## Installation
 Requires Xming for GUI : http://www.geo.mtu.edu/geoschem/docs/putty_install.html
-
+![](X11Enabled.gif)
+![](X11Enabled1.gif)
 ```bash
 git clone https://github.com/akassab/QuadrisProject.git
 cd QuadrisProjectProject/quadris
@@ -13,20 +14,14 @@ make
 ./quadris
 ```
 ## Usage
+Input(command line only): 
+"right", "left", "down", "clockwise", "counterclockwise", 
+"5right, "5left", "5down", "5clockwise, "5counterclockwise"
 
-```Shell
-Examples:
-Use to transition/rotate
-right, left, down
-clockwise
-counterclockwise
 Must end with "drop" 
-For faster input try specifying a number than the transition/rotation type
-Ex: 5right 2 down 2 right drop
-Script used in gif:
-![](example.gif)
 
-Example input:
+![](example.gif)
+```Shell
 drop
 5right drop
 3right drop
