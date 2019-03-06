@@ -1,24 +1,50 @@
 
-# QuadrisProject
-# Mark: %94, Class Avg: ~%60
+# Quadris
 
-# Demo Video: 
-https://www.youtube.com/watch?v=Z-mwqZnRrg8&feature=youtu.be
-# Report: 
-https://github.com/akassab/QuadrisProject/blob/master/a5-report-report.pdf
-# UML : 
-https://github.com/akassab/QuadrisProject/blob/master/a5-dd1uml-uml1.pdf
+Quadris is a Tetris-like game that myself and 2 other students worked on for our final project. 
 
-REQUIRES XMING TO RUN : http://www.geo.mtu.edu/geoschem/docs/putty_install.html
+## Installation
+Requires Xming for GUI : http://www.geo.mtu.edu/geoschem/docs/putty_install.html
 
-To play the game:
-1. Open terminal.
-2. Clone the repo.
-3. Nagavate inside the repo's quadris directory
-4. run make
-5. run command line: ./quadris
-6. use commands in the command line:
-  i. right, left, down, drop
-  ii. clockwise, counterclockwise
-  
-# See quadris.pdf for functionality and guidelines
+```bash
+git clone https://github.com/akassab/QuadrisProject.git
+cd QuadrisProjectProject/quadris
+make
+./quadris
+```
+## Usage
+
+```Shell
+Examples:
+Use to transition/rotate
+right, left, down
+clockwise
+counterclockwise
+Must end with "drop" 
+For faster input try specifying a number than the transition/rotation type
+Ex: 5right 2 down 2 right drop
+Script used in gif:
+![](example.gif)
+
+Example input:
+drop
+5right drop
+3right drop
+clockwise drop
+4right clockwise drop
+clockwise 2right drop
+6right drop
+6right 3clockwise drop
+clockwise 10right drop
+5right drop
+right drop
+3right clockwise drop
+4right drop
+7right 3clockwise drop
+clockwise drop
+clockwise 9right drop
+
+
+
+```
+
