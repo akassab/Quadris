@@ -21,6 +21,8 @@ Input(command line only):
 Must end with "drop" 
 
 ![](example.gif)
+
+Perfect example script:
 ```Shell
 drop
 5right drop
